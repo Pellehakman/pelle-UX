@@ -1,32 +1,47 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import json_laureates from './data/json_laureates.json'
+import json_award from './data/json_award.json'
 
 function App() {
-  const [count, setCount] = useState(0)
+const [year, setYear] = useState([])
+console.log(year)
+  const award = json_award
+  // console.log(award)
+
+  const laureates = json_laureates
+  // console.log(laureates)
+// let arr = []
+// for ( let counter = 1901; counter <= 2022; counter++ ) {
+// console.log(`The number is ${counter}`); 
+
+
+
+function test() {
+  const years = [];
+
+  for (let counter = 1901; counter <= 2022; counter++ ) {
+    years.push(counter);
+      // super_array.push(sub_array.slice(0));
+  }
+  console.log(years);
+
+
+}
+
+
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <button onClick={test}>shit</button>
+<select>
+  {/* {awardYear} */}
+</select>
+
+      
+        
     </div>
   )
 }
