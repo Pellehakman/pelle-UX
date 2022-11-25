@@ -1,47 +1,54 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import json_laureates from './data/json_laureates.json'
 import json_award from './data/json_award.json'
+import { nanoid } from 'nanoid'
+
+import { Years } from './models/data'
+
 
 function App() {
-const [year, setYear] = useState([])
-console.log(year)
+
+  const [obj, setObj] = useState<Years[]>()
+
+ 
+
+
+
   const award = json_award
-  // console.log(award)
-
   const laureates = json_laureates
-  // console.log(laureates)
-// let arr = []
-// for ( let counter = 1901; counter <= 2022; counter++ ) {
-// console.log(`The number is ${counter}`); 
 
 
 
-function test() {
-  const years = [];
+ 
 
-  for (let counter = 1901; counter <= 2022; counter++ ) {
-    years.push(counter);
-      // super_array.push(sub_array.slice(0));
+
+
+useEffect(() => {
+  let arr: Years[] = []
+  setObj(arr)
+  for (let i = 1901; i <= 2022; i++){
+    let years = {
+      year: i
+    }
+    arr.push(years)
   }
-  console.log(years);
+}, [])
+ 
 
-
-}
-
+const gold = obj.map((f) => <option key={f.year}>{f.year}</option>)
 
 
   return (
     <div className="App">
-
-      <button onClick={test}>shit</button>
-<select>
-  {/* {awardYear} */}
-</select>
-
-      
+   
         
+<select>
+{gold}
+</select>
+        
+  
     </div>
   )
 }
