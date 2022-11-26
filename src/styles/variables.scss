@@ -1,0 +1,9 @@
+$tab-One: #f3f3f3;
+$main-bg: #110E0E;
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}

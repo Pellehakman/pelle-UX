@@ -1,0 +1,18 @@
+@import './styles/variables.scss';
+
+
+
+body {
+  background-color: $main-bg;
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, SetStateAction } from 'react'
 import reactLogo from './assets/react.svg'
 import './app.scss'
 import { nanoid } from 'nanoid'
@@ -56,19 +56,10 @@ function App() {
 //   createYears()
 // }, [])
 
-const [isActive, setIsActive] = useState(false);
+const [toggleState, setToggleState] = useState(1);
 
-const [tab1, setTab1] = useState('tab1');
-const [tab2, setTab2] = useState('tab2');
-
-const handleTab1 = () =>{
-  console.log('hira')
-  setTab1('tab1 green')
-};
-
-const handleTab2 = () =>{
-  console.log('hira')
-  setTab2('tab2 green')
+const toggleTab = (index: SetStateAction<number>) => {
+  setToggleState(index);
 };
 
   return (
@@ -100,25 +91,50 @@ const handleTab2 = () =>{
 
       </div>
 
-      <div className="chart-container">
+      
 
         <div className='tab-container'>
+        
 
-         
-          <div className={isActive ? 'tab1' : tab1} onClick={handleTab1}>LINE</div>
-          <div className={isActive ? 'tab2' : tab2} onClick={handleTab2}>LINE</div>
+      <div className="bloc-tabs">
+        <button className={toggleState === 1 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(1)}>BARS</button>
+        <button className={toggleState === 2 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(2)}>CIRCLE</button>
+        <button className={toggleState === 3 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(3)}>LINE </button>
+        <button className={toggleState === 4 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(4)}>AREA</button>
+      </div>
 
-          <div className='tab3'>BARS</div>
-          <div className='tab4'>CIRCLE</div>
+      <div className="content-tabs">
+        <div className={toggleState === 1 ? "content  active-content" : "content"}>
+          <h2>BARS</h2>
           
+        </div>
+
+        <div className={toggleState === 2 ? "content  active-content" : "content"}>
+          <h2>CIRCLE</h2>
+          
+        </div>
+
+        <div className={toggleState === 3 ? "content  active-content" : "content"} >
+          <h2>LINE</h2>
+          
+        </div>
+        <div className={toggleState === 4 ? "content  active-content" : "content"} >
+          <h2>AREA</h2>
+          
+        </div>
+        
+      </div>
+    </div>
+         
+        
 
         </div>
 
-        <div className={isActive ? 'charts-active' : 'charts'}>go</div>
-      </div>
+        
+     
 
       
-    </div>
+   
   )
 }
 

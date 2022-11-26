@@ -86,53 +86,70 @@
     }
 
   }
-  .chart-container{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+
     
     .tab-container{
       display: flex;
       background-color: black;
-      flex: .1;
+      flex: 1;
+      flex-direction: column;
       font-size: 1.5rem;
       font-family: 'Jost';
-      color: white;
+      color: rgb(185, 185, 185);
+      
+      .bloc-tabs {
+        display: flex;
+      }
+      .tabs {
+        font-family: 'Jost';
+        color: white;
+        padding: 15px;
+        font-size: 1.2rem;
+        font-weight: 300;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        display: flex;
+        background: rgb(24, 24, 24);
+        cursor: pointer;
+        height: 2.5rem;
+        
+        
+       
+      }
+   
+      .active-tabs  {
+        transition: .1s all ease-out;
+        background: rgb(10, 10, 10);
+        
+        
+       
+       
+      }
+   
+      button {
+        border: none;
+      }
+      
+      .content-tabs {
+        flex-grow : 1;
+      }
+      .content {
+        background: rgb(10, 10, 10);
+        
+        
+        display: none;
+      }
+     
+      .active-content {
+        display: flex;
+        height: 100%;
+        
 
-      .tab1{
-        flex: 1;
-        @include flexCenter;
-        cursor: pointer;
       }
-      .tab2{
-        flex: 1;
-        @include flexCenter;
-        cursor: pointer;
-      }
-      .tab3{
-        flex: 1;
-        @include flexCenter;
-        cursor: pointer;
-      }
-      .tab4{
-        flex: 1;
-        @include flexCenter;
-        cursor: pointer;
-      }
+      
 
-
-      .tab1-active{
-        flex: 3;
-        @include flexCenter;
-      }
-      .tab2-active{
-        flex: 3;
-        @include flexCenter;
-      }
 
     }
-  }
+  
 } 
-.green{
-  background-color: #FAB017;
-}
