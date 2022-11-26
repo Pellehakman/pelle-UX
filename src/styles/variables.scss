@@ -1,0 +1,18 @@
+
+$tab-One: rgb(36, 36, 36);
+$tab-Two: #1a1a18;
+$tab-Three: #272327;
+$tab-Four: #313131;
+
+
+$text-font: "Roboto Condensed", sans-serif;
+$header-font: "Bebas Neue";
+$box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.212);
+
+
+
+@mixin flexCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
