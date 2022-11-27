@@ -32,58 +32,33 @@ function App() {
 let catagoryWinners = yearWinners.map(f => f.category.en)
 
 
-let laureatesWinners = yearWinners.map((f, index) => {
+let laureatesWinners = yearWinners.map((f) => {
   if(f.hasOwnProperty('laureates')){
-    return(
-      <div key={index}>{f.laureates.map(b => b.id)}</div>
-    )
-  }
-  else {
-    return
-  }
-  
+    return(f.laureates.map(b => b.id))
+  } else { return }
 })
+
+let calcWinner = laureatesWinners.map((f) => {
+  if (f?.keys === 'undefined'){
+    console.log('shit')
+  }
+})
+
 
 console.log('laureatesWinners', laureatesWinners)
 
-let amountWinners = yearWinners.map((f) => {
-  if(f.hasOwnProperty('laureates')){
-    return(
-      (f.laureates.map(b => b.id))
-    )
-  } else {
-    return (alert('shit'))
-  }
-  
-})
-
-// let newShit = yearWinners.map((f) => {
-//   if(f.hasOwnProperty('undefined')){
-//     return(
-//       (f.splice('undefined'))
-//     )
-//   } else {
-//     return
-//   }
-  
-// })
-// let newShit = amountWinners.filter()
-
-
-// let how = amountWinners.map(f => f.length)
-// console.log('newShit', newShit)
-// console.log('how', how)
+console.log('calcWinner', calcWinner)
 
 
 
 
 
-// let amountWinners = yearWinners.map(a => a.laureates.map(c => c.id))
 
-// console.log('yearWinners', yearWinners)
-// console.log('laureatesWinners', laureatesWinners)
-// let how = amountWinners.map(f => f.length)
-// console.log('how', how)
+
+
+
+
+
 
 
 const createYears = () => {
