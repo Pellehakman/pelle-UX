@@ -4,7 +4,7 @@
 @import './styles/variables.scss';
 
 .tab-one-bg{
-  background-color: $tab-One;
+  background-color: $tabs;
   transition: 1s all;
 }
 
@@ -60,9 +60,15 @@
 
       }
       .info-select{
+        flex-direction: column;
         font-size: 1rem;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
+        
+        .info-q1{
+          @include flexCenter;
+          
+        }
         .select{
           margin-left: .5rem;
           font-size: 1.5rem;
