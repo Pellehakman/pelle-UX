@@ -9,37 +9,82 @@ import './styles/variables.scss';
 import json_laureates from './data/json_laureates.json'
 import json_award from './data/json_award.json'
 
-function App() {
+// 1.Antalet pristagare inom de olika kategorierna, för ett valt år. 
+// 2. med möjlighet att välja årtal på ett användarvänligt sätt
+// 3. Fördelningen mellan män och kvinnor bland pristagare (cirkeldiagram)
+// 4. Hur många gånger som Nobelpriset delats ut, inom varje kategori
 
+
+
+
+function App() {
   const [obj, setObj] = useState<Years[]>([])
-  const [whatYear, setWhatYear] = useState('1901')
+  const [displayYear, setDisplayYear] = useState<string>("1901")
 
   const award = json_award
   const laureates = json_laureates
  
 
-
-
-
-
   let yearWinners = award.filter(function (yearWinner) {
-    return yearWinner.awardYear === `${whatYear}`;
+    return yearWinner.awardYear === `${displayYear}`;
   });
 
 let catagoryWinners = yearWinners.map(f => f.category.en)
 
-console.log(...catagoryWinners)
 
-  const displayYears = obj.map((f) => <option key={f.year}>{f.year}</option>)
- 
-  console.log(displayYears)
+let laureatesWinners = yearWinners.map((f, index) => {
+  if(f.hasOwnProperty('laureates')){
+    return(
+      <div key={index}>{f.laureates.map(b => b.id)}</div>
+    )
+  }
+  else {
+    return
+  }
+  
+})
+
+console.log('laureatesWinners', laureatesWinners)
+
+let amountWinners = yearWinners.map((f) => {
+  if(f.hasOwnProperty('laureates')){
+    return(
+      (f.laureates.map(b => b.id))
+    )
+  } else {
+    return (alert('shit'))
+  }
+  
+})
+
+// let newShit = yearWinners.map((f) => {
+//   if(f.hasOwnProperty('undefined')){
+//     return(
+//       (f.splice('undefined'))
+//     )
+//   } else {
+//     return
+//   }
+  
+// })
+// let newShit = amountWinners.filter()
 
 
- 
+// let how = amountWinners.map(f => f.length)
+// console.log('newShit', newShit)
+// console.log('how', how)
 
 
 
- 
+
+
+// let amountWinners = yearWinners.map(a => a.laureates.map(c => c.id))
+
+// console.log('yearWinners', yearWinners)
+// console.log('laureatesWinners', laureatesWinners)
+// let how = amountWinners.map(f => f.length)
+// console.log('how', how)
+
 
 const createYears = () => {
   let arr: Years[] = []
@@ -88,8 +133,8 @@ const toggleTab = (index: SetStateAction<number>) => {
 
             <div className='info-q1'>
             <h3>What Year?</h3>
-            <select className='select'>
-              {displayYears}
+            <select className='select' onChange={(e) => setDisplayYear(e.currentTarget.value)}>
+              {obj.map((f) => <option key={f.year}>{f.year}</option>)}
             </select>
             </div>
             
@@ -100,7 +145,8 @@ const toggleTab = (index: SetStateAction<number>) => {
 
         </div>
         <div className="year-container">
-          <h1>1940</h1>       
+          <h1>{displayYear}</h1>  
+              
         </div>
 
       </div>
@@ -120,12 +166,13 @@ const toggleTab = (index: SetStateAction<number>) => {
       <div className="content-tabs">
         <div className={toggleState === 1 ? "content  active-content" : "content"}>
           <h2>BARS</h2>
+          {laureatesWinners}
           
         </div>
 
         <div className={toggleState === 2 ? "content  active-content" : "content"}>
           <h2>CIRCLE</h2>
-          
+         
         </div>
 
         <div className={toggleState === 3 ? "content  active-content" : "content"} >

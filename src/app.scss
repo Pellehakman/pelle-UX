@@ -141,10 +141,16 @@
         flex-grow : 1;
       }
       .content {
+        display: flex;
+        flex-direction: column;
         background: rgb(10, 10, 10);
         
         
         display: none;
+        .content-p{
+          font-size: 1rem;
+          font-weight: 100;
+        }
       }
      
       .active-content {
