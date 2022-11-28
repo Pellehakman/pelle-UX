@@ -20,21 +20,22 @@ import json_award from './data/json_award.json'
 function App() {
   const [obj, setObj] = useState<Years[]>([])
   const [displayYear, setDisplayYear] = useState<string>("1901")
-
+  const [toggleState, setToggleState] = useState(1);
   const award = json_award
   const laureates = json_laureates
- 
+
+
+const toggleTab = (index: SetStateAction<number>) => {
+  setToggleState(index);
+};
 
   let yearWinners = award.filter( (yearWinner) => {
     return yearWinner.awardYear === `${displayYear}`;
   });
 
-// let catagoryWinners = yearWinners.map(f => f.category.en)
-
-
 let laureatesWinners = yearWinners.map((f) => {
   if(f.hasOwnProperty('laureates')){
-    return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates.map(r => r.id).length} winner</div>)
+    return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates?.map(r => r.id).length} winner</div>)
   } 
 })
 
@@ -43,45 +44,59 @@ let laureatesWinners = yearWinners.map((f) => {
 let maleGender = laureates.filter((f) => {
   if (f.gender === 'male'){
   return (f.gender)
-  }
-});
-let totalMale = maleGender.length
+  }});
+
 
 //find all female only
 let femaleGender = laureates.filter((f) => {
   if (f.gender === 'female'){
   return (f.gender)
-  }
-});
-let totalFemale = femaleGender.length
+  }});
+
+let totalGender = {
+  totalFemale: femaleGender.length,
+  totalMale: maleGender.length
+}
 
 
 
+// FIND TOTAL WINS IN ALL CATEGORYS
+let prices:any = laureates.map(f => f.nobelPrizes.map(v => v.category.en)[0])
+let Chemistry = prices.filter((f: string) => {
+  if (f === 'Chemistry'){
+    return (f)}});
 
+let Literature = prices.filter((f: string) => {
+  if (f === 'Literature'){
+    return (f)}});
 
-let allPrizes = laureates.map(f => f.nobelPrizes.map(g => g.category))
+let Peace = prices.filter((f: string) => {
+  if (f === 'Peace'){
+    return (f)}});
 
+let Physics = prices.filter((f: string) => {
+  if (f === 'Physics'){
+    return (f)}});
 
-let hej = allPrizes.map((f) => {
-  if (f.map(r => r.en === 'Chemistry')){ 
-    return (f.map(r => r.en))
+let PhysiologyorMedicine = prices.filter((f: string) => {
+  if (f === 'Physiology or Medicine'){
+    return (f)}});
 
-  } else {
-    return ('wjo')
-  }
-})
+let EconomicSciences = prices.filter((f: string) => {
+  if (f === 'Economic Sciences'){
+    return (f)}});
 
-console.log(hej)
+let winStatistics = {
+  totatLiterature: Literature.length,
+  totalChemistry: Chemistry.length,
+  totalPhysiologyorMedicine: PhysiologyorMedicine.length, 
+  totalPhysics: Physics.length,
+  totalPeace: Peace.length,
+  totalEconomicSciences: EconomicSciences.length
+}
+// console.log(winStatistics)
 
-
-
-
-
-
-
-
-
-
+// CREATING ALL YEARS OF NOBEL PRIZES
 const createYears = () => {
   let arr: Years[] = []
   setObj(arr)
@@ -98,11 +113,7 @@ useEffect(() => {
  
 }, [])
 
-const [toggleState, setToggleState] = useState(1);
 
-const toggleTab = (index: SetStateAction<number>) => {
-  setToggleState(index);
-};
 
   return (
     <div className="app-container">
@@ -168,14 +179,23 @@ const toggleTab = (index: SetStateAction<number>) => {
 
         <div className={toggleState === 2 ? "content  active-content" : "content"}>
           <h2>CIRCLE</h2>
-          there is a total of {totalFemale} female winners <br/>
-          and a total of {totalMale} male winners
+          there is a total of {totalGender.totalFemale} female winners <br/>
+          and a total of {totalGender.totalMale} male winners
           
          
         </div>
 
         <div className={toggleState === 3 ? "content  active-content" : "content"} >
           <h2>LINE</h2>
+          
+
+
+        chemistry {winStatistics.totalChemistry} <br/>
+        economic {winStatistics.totalEconomicSciences}<br/>
+        physics {winStatistics.totalPhysics}<br/>
+        peace {winStatistics.totalPeace} <br/>
+        litterature{winStatistics.totatLiterature}<br/>
+        psycology{winStatistics.totalPhysiologyorMedicine}<br/>
           
         </div>
         <div className={toggleState === 4 ? "content  active-content" : "content"} >
