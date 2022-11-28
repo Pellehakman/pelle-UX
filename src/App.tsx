@@ -25,32 +25,53 @@ function App() {
   const laureates = json_laureates
  
 
-  let yearWinners = award.filter(function (yearWinner) {
+  let yearWinners = award.filter( (yearWinner) => {
     return yearWinner.awardYear === `${displayYear}`;
   });
 
-let catagoryWinners = yearWinners.map(f => f.category.en)
+// let catagoryWinners = yearWinners.map(f => f.category.en)
 
 
 let laureatesWinners = yearWinners.map((f) => {
   if(f.hasOwnProperty('laureates')){
-    return(f.laureates.map(b => b.id))
-  } else { return }
+    return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates.map(r => r.id).length} winner</div>)
+  } 
 })
 
-let calcWinner = laureatesWinners.map((f) => {
-  if (f?.keys === 'undefined'){
-    console.log('shit')
+
+//find all male only
+let maleGender = laureates.filter((f) => {
+  if (f.gender === 'male'){
+  return (f.gender)
+  }
+});
+let totalMale = maleGender.length
+
+//find all female only
+let femaleGender = laureates.filter((f) => {
+  if (f.gender === 'female'){
+  return (f.gender)
+  }
+});
+let totalFemale = femaleGender.length
+
+
+
+
+
+let allPrizes = laureates.map(f => f.nobelPrizes.map(g => g.category))
+
+
+let hej = allPrizes.map((f) => {
+  if (f.map(r => r.en === 'Chemistry')){ 
+    return (f.map(r => r.en))
+
+  } else {
+    return ('wjo')
   }
 })
 
-
-console.log('laureatesWinners', laureatesWinners)
-
-console.log('calcWinner', calcWinner)
-
-
-
+console.log(hej)
 
 
 
@@ -72,9 +93,9 @@ const createYears = () => {
   }
 }
 
-
 useEffect(() => {
   createYears()
+ 
 }, [])
 
 const [toggleState, setToggleState] = useState(1);
@@ -147,6 +168,9 @@ const toggleTab = (index: SetStateAction<number>) => {
 
         <div className={toggleState === 2 ? "content  active-content" : "content"}>
           <h2>CIRCLE</h2>
+          there is a total of {totalFemale} female winners <br/>
+          and a total of {totalMale} male winners
+          
          
         </div>
 
