@@ -5,9 +5,23 @@ import { nanoid } from 'nanoid'
 import { Years } from './models/data'
 import logo from './assets/Nobel_logo.svg'
 import './styles/variables.scss';
-
 import json_laureates from './data/json_laureates.json'
 import json_award from './data/json_award.json'
+import React from 'react';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import faker from 'faker';
+
+
 
 // 1.Antalet pristagare inom de olika kategorierna, för ett valt år. 
 // 2. med möjlighet att välja årtal på ett användarvänligt sätt
@@ -23,6 +37,49 @@ function App() {
   const [toggleState, setToggleState] = useState(1);
   const award = json_award
   const laureates = json_laureates
+  
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+
+   const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Line Chart',
+      },
+    },
+  };
+
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+const data = {
+  labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: [1, 4, 6, 6, 8, 2, 15],
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    },
+    {
+      label: 'Dataset 2',
+      data: labels.map(() => ({ min: -1000, max: 1000 })),
+      borderColor: 'rgb(53, 162, 235)',
+      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+    },
+  ],
+};
 
 
 const toggleTab = (index: SetStateAction<number>) => {
@@ -174,6 +231,7 @@ useEffect(() => {
         <div className={toggleState === 1 ? "content  active-content" : "content"}>
           <h2>BARS</h2>
           {laureatesWinners}
+          <Line options={options} data={data} />;
           
         </div>
 
