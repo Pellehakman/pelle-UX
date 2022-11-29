@@ -37,8 +37,21 @@ function App() {
   const [obj, setObj] = useState<Years[]>([])
   const [displayYear, setDisplayYear] = useState<string>("1901")
   const [toggleState, setToggleState] = useState(1);
+  const [question, setQuestion] = useState<string>('year')
+
+  
   const award = json_award
   const laureates = json_laureates
+
+const displayData = () => {
+    if (question === 'year'){
+      console.log('year is selected')
+    } if (question === 'gender'){
+      console.log('gender is selected')
+    } if (question === 'category'){
+      console.log('category is selected')
+    } 
+}
 
 const toggleTab = (index: SetStateAction<number>) => {
   setToggleState(index);
@@ -48,6 +61,7 @@ const toggleTab = (index: SetStateAction<number>) => {
     return yearWinner.awardYear === `${displayYear}`;
   });
 
+  
 let laureatesWinners = yearWinners.map((f) => {
   if(f.hasOwnProperty('laureates')){
     return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates?.map(r => r.id).length} winner</div>)
@@ -123,8 +137,13 @@ const createYears = () => {
 
 useEffect(() => {
   createYears()
- 
+  
+
 }, [])
+
+useEffect(()=> {
+  displayData()
+},[question])
 
 
 
@@ -140,19 +159,23 @@ useEffect(() => {
 
           <h1 className='info-h1'>THE NOBEL PRICE</h1>
 
-          <p className='info-p'>In this app you can see data in different diagrams <br/> over the years. </p>
+          <p className='info-p'>In this app you can see data in different diagrams over the years. </p>
 
           <div className='info-select'>
             <div className='info-q1'>
-            <h3>What do you want to know?</h3>
-            <select className='select'>
-              <option>Who won?</option>
+            <h3 className='info-h3'>What do you want to know?</h3>
+            <select className='select' onChange={(e) => setQuestion(e.currentTarget.value)}>
+              <option value="year">Nobel Prizes by Year?</option>
+              <option value="gender">Nobel Prizes by Gender?</option>
+              <option value="category">Nobel Prizes by Catagory?</option>
             </select>
             </div>
 
 
             <div className='info-q1'>
-            <h3>What Year?</h3>
+            <h3 className='info-h3'>What Year?</h3>
+
+            
             <select className='select' onChange={(e) => setDisplayYear(e.currentTarget.value)}>
               {obj.map((f) => <option key={f.year}>{f.year}</option>)}
             </select>
@@ -186,15 +209,15 @@ useEffect(() => {
       <div className="content-tabs">
         <div className={toggleState === 1 ? "content  active-content" : "content"}>
           <h2>BARS</h2>
-          {laureatesWinners}
+          {/* {laureatesWinners} */}
          
           
         </div>
 
         <div className={toggleState === 2 ? "content  active-content" : "content"}>
           <h2>CIRCLE</h2>
-          there is a total of {totalGender.totalFemale} female winners <br/>
-          and a total of {totalGender.totalMale} male winners
+          {/* there is a total of {totalGender.totalFemale} female winners <br/>
+          and a total of {totalGender.totalMale} male winners */}
           
          
         </div>
@@ -203,13 +226,13 @@ useEffect(() => {
           <h2>LINE</h2>
           
 
-
+{/* 
         chemistry {winStatistics.totalChemistry} <br/>
         economic {winStatistics.totalEconomicSciences}<br/>
         physics {winStatistics.totalPhysics}<br/>
         peace {winStatistics.totalPeace} <br/>
         litterature{winStatistics.totatLiterature}<br/>
-        psycology{winStatistics.totalPhysiologyorMedicine}<br/>
+        psycology{winStatistics.totalPhysiologyorMedicine}<br/> */}
           
         </div>
         <div className={toggleState === 4 ? "content  active-content" : "content"} >
