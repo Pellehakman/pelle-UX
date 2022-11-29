@@ -17,9 +17,11 @@ import {
   Title,
   Tooltip,
   Legend,
+  ArcElement
+ 
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import faker from 'faker';
+import { Line, Pie } from 'react-chartjs-2';
+
 
 
 
@@ -37,50 +39,6 @@ function App() {
   const [toggleState, setToggleState] = useState(1);
   const award = json_award
   const laureates = json_laureates
-  
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  );
-
-   const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart',
-      },
-    },
-  };
-
-  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [1, 4, 6, 6, 8, 2, 15],
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => ({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
-
 
 const toggleTab = (index: SetStateAction<number>) => {
   setToggleState(index);
@@ -114,8 +72,6 @@ let totalGender = {
   totalFemale: femaleGender.length,
   totalMale: maleGender.length
 }
-
-
 
 // FIND TOTAL WINS IN ALL CATEGORYS
 let prices:any = laureates.map(f => f.nobelPrizes.map(v => v.category.en)[0])
@@ -231,7 +187,7 @@ useEffect(() => {
         <div className={toggleState === 1 ? "content  active-content" : "content"}>
           <h2>BARS</h2>
           {laureatesWinners}
-          <Line options={options} data={data} />;
+         
           
         </div>
 

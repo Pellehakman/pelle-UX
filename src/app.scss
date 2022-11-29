@@ -139,6 +139,7 @@
       
       .content-tabs {
         flex-grow : 1;
+        background: rgb(10, 10, 10);
       }
       .content {
         display: flex;
@@ -154,8 +155,11 @@
       }
      
       .active-content {
+        padding: 4rem;
         display: flex;
         height: 100%;
+        width: 50%;
+        margin: 0 auto;
         
 
       }
