@@ -2,7 +2,7 @@ import { useState, useEffect, SetStateAction } from 'react'
 import reactLogo from './assets/react.svg'
 import './app.scss'
 import { nanoid } from 'nanoid'
-import { Years } from './models/data'
+import { Years, Gender } from './models/data'
 import logo from './assets/Nobel_logo.svg'
 import './styles/variables.scss';
 import json_laureates from './data/json_laureates.json'
@@ -35,39 +35,38 @@ import { Line, Pie } from 'react-chartjs-2';
 
 function App() {
   const [obj, setObj] = useState<Years[]>([])
-  const [displayYear, setDisplayYear] = useState<string>("1901")
+  const [displayYear, setDisplayYear] = useState<string>('1901')
   const [toggleState, setToggleState] = useState(1);
   const [question, setQuestion] = useState<string>('year')
+  const [yearsData, setYearsData ] = useState([])
+  const [genderData, setGenderData ] = useState<Gender[]>([])
+  const [categoryData, setCategoryData ] = useState([])
 
-  
   const award = json_award
   const laureates = json_laureates
+ 
 
-const displayData = () => {
-    if (question === 'year'){
-      console.log('year is selected')
-    } if (question === 'gender'){
-      console.log('gender is selected')
-    } if (question === 'category'){
-      console.log('category is selected')
-    } 
-}
+ 
 
-const toggleTab = (index: SetStateAction<number>) => {
-  setToggleState(index);
-};
-
+  const toggleTab = (index: SetStateAction<number>) => {setToggleState(index);};
+  
   let yearWinners = award.filter( (yearWinner) => {
     return yearWinner.awardYear === `${displayYear}`;
   });
 
-  
+// laureates by year 
+// let laureatesWinners = yearWinners.map((f) => {
+//   if(f.hasOwnProperty('laureates')){
+//     return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates?.map(r => r.id).length} winner</div>)
+//   } 
+// })
 let laureatesWinners = yearWinners.map((f) => {
   if(f.hasOwnProperty('laureates')){
     return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates?.map(r => r.id).length} winner</div>)
-  } 
+  } else {
+    return
+  }
 })
-
 
 //find all male only
 let maleGender = laureates.filter((f) => {
@@ -75,17 +74,11 @@ let maleGender = laureates.filter((f) => {
   return (f.gender)
   }});
 
-
 //find all female only
 let femaleGender = laureates.filter((f) => {
   if (f.gender === 'female'){
   return (f.gender)
   }});
-
-let totalGender = {
-  totalFemale: femaleGender.length,
-  totalMale: maleGender.length
-}
 
 // FIND TOTAL WINS IN ALL CATEGORYS
 let prices:any = laureates.map(f => f.nobelPrizes.map(v => v.category.en)[0])
@@ -113,16 +106,6 @@ let EconomicSciences = prices.filter((f: string) => {
   if (f === 'Economic Sciences'){
     return (f)}});
 
-let winStatistics = {
-  totatLiterature: Literature.length,
-  totalChemistry: Chemistry.length,
-  totalPhysiologyorMedicine: PhysiologyorMedicine.length, 
-  totalPhysics: Physics.length,
-  totalPeace: Peace.length,
-  totalEconomicSciences: EconomicSciences.length
-}
-// console.log(winStatistics)
-
 // CREATING ALL YEARS OF NOBEL PRIZES
 const createYears = () => {
   let arr: Years[] = []
@@ -135,15 +118,41 @@ const createYears = () => {
   }
 }
 
-useEffect(() => {
-  createYears()
-  
-
+let winStatistics = {
+  totatLiterature: Literature.length,
+  totalChemistry: Chemistry.length,
+  totalPhysiologyorMedicine: PhysiologyorMedicine.length, 
+  totalPhysics: Physics.length,
+  totalPeace: Peace.length,
+  totalEconomicSciences: EconomicSciences.length
+}
+let totalGender = {
+  totalFemale: femaleGender.length,
+  totalMale: maleGender.length
+}
+const displayData = () => {
+  if (question === 'year'){
+    setYearsData(laureatesWinners)
+    setGenderData([])
+    setCategoryData([])
+  } if (question === 'gender'){
+    setGenderData(totalGender)
+    setCategoryData([])
+    setYearsData([])
+  } if (question === 'category'){
+    setCategoryData(winStatistics)
+    setGenderData([])
+    setYearsData([])
+  } 
+}
+useEffect(()=> {
+  createYears() 
 }, [])
 
 useEffect(()=> {
   displayData()
-},[question])
+
+}, [question, displayYear])
 
 
 
@@ -209,35 +218,31 @@ useEffect(()=> {
       <div className="content-tabs">
         <div className={toggleState === 1 ? "content  active-content" : "content"}>
           <h2>BARS</h2>
-          {/* {laureatesWinners} */}
-         
+          {yearsData}
+         {genderData.totalMale}
+         {categoryData.totatLiterature}
           
         </div>
 
         <div className={toggleState === 2 ? "content  active-content" : "content"}>
           <h2>CIRCLE</h2>
-          {/* there is a total of {totalGender.totalFemale} female winners <br/>
-          and a total of {totalGender.totalMale} male winners */}
-          
-         
+          {yearsData}
+         {genderData.totalMale}
+         {categoryData.totatLiterature}
         </div>
 
         <div className={toggleState === 3 ? "content  active-content" : "content"} >
           <h2>LINE</h2>
-          
-
-{/* 
-        chemistry {winStatistics.totalChemistry} <br/>
-        economic {winStatistics.totalEconomicSciences}<br/>
-        physics {winStatistics.totalPhysics}<br/>
-        peace {winStatistics.totalPeace} <br/>
-        litterature{winStatistics.totatLiterature}<br/>
-        psycology{winStatistics.totalPhysiologyorMedicine}<br/> */}
-          
+          {yearsData}
+         {genderData.totalMale}
+         {categoryData.totatLiterature}
         </div>
+
         <div className={toggleState === 4 ? "content  active-content" : "content"} >
           <h2>AREA</h2>
-          
+          {yearsData}
+         {genderData.totalMale}
+         {categoryData.totatLiterature}
         </div>
         
       </div>
