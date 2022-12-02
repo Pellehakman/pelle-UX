@@ -39,14 +39,14 @@ function App() {
   const [toggleState, setToggleState] = useState(1);
   const [question, setQuestion] = useState<string>('year')
   const [yearsData, setYearsData ] = useState([])
-  const [genderData, setGenderData ] = useState<Gender[]>([])
+  const [genderData, setGenderData ] = useState([])
   const [categoryData, setCategoryData ] = useState([])
-
   const award = json_award
   const laureates = json_laureates
- 
 
- 
+  const [overlay, setOverlay] = useState<boolean>(false);
+  
+
 
   const toggleTab = (index: SetStateAction<number>) => {setToggleState(index);};
   
@@ -54,13 +54,7 @@ function App() {
     return yearWinner.awardYear === `${displayYear}`;
   });
 
-// laureates by year 
-// let laureatesWinners = yearWinners.map((f) => {
-//   if(f.hasOwnProperty('laureates')){
-//     return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates?.map(r => r.id).length} winner</div>)
-//   } 
-// })
-let laureatesWinners = yearWinners.map((f) => {
+let laureatesWinners:any = yearWinners.map((f) => {
   if(f.hasOwnProperty('laureates')){
     return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates?.map(r => r.id).length} winner</div>)
   } else {
@@ -117,8 +111,7 @@ const createYears = () => {
     arr.push(years)
   }
 }
-
-let winStatistics = {
+let winStatistics:any = {
   totatLiterature: Literature.length,
   totalChemistry: Chemistry.length,
   totalPhysiologyorMedicine: PhysiologyorMedicine.length, 
@@ -126,7 +119,7 @@ let winStatistics = {
   totalPeace: Peace.length,
   totalEconomicSciences: EconomicSciences.length
 }
-let totalGender = {
+let totalGender:any = {
   totalFemale: femaleGender.length,
   totalMale: maleGender.length
 }
@@ -135,14 +128,17 @@ const displayData = () => {
     setYearsData(laureatesWinners)
     setGenderData([])
     setCategoryData([])
+    setOverlay(true)
   } if (question === 'gender'){
     setGenderData(totalGender)
     setCategoryData([])
     setYearsData([])
+    setOverlay(false)
   } if (question === 'category'){
     setCategoryData(winStatistics)
     setGenderData([])
     setYearsData([])
+    setOverlay(false)
   } 
 }
 useEffect(()=> {
@@ -151,23 +147,16 @@ useEffect(()=> {
 
 useEffect(()=> {
   displayData()
-
 }, [question, displayYear])
-
-
 
   return (
     <div className="app-container">
-
       <div className="hero-container">
-
         <div className="logo-container">
           <img className='logo' src={logo} alt="" />
         </div>
         <div className="info-container">
-
           <h1 className='info-h1'>THE NOBEL PRICE</h1>
-
           <p className='info-p'>In this app you can see data in different diagrams over the years. </p>
 
           <div className='info-select'>
@@ -179,35 +168,24 @@ useEffect(()=> {
               <option value="category">Nobel Prizes by Catagory?</option>
             </select>
             </div>
-
-
-            <div className='info-q1'>
+            {overlay && 
+              <div className='info-q1'>
             <h3 className='info-h3'>What Year?</h3>
 
-            
             <select className='select' onChange={(e) => setDisplayYear(e.currentTarget.value)}>
               {obj.map((f) => <option key={f.year}>{f.year}</option>)}
             </select>
             </div>
+            }
             
-
-           
           </div>
           
-
         </div>
-        <div className="year-container">
-          <h1>{displayYear}</h1>  
-              
+        <div className="year-container"><h1>{displayYear}</h1></div>
         </div>
-
-      </div>
-
-      
 
         <div className='tab-container'>
         
-
       <div className="bloc-tabs">
         <button className={toggleState === 1 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(1)}>BARS</button>
         <button className={toggleState === 2 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(2)}>CIRCLE</button>
@@ -219,30 +197,31 @@ useEffect(()=> {
         <div className={toggleState === 1 ? "content  active-content" : "content"}>
           <h2>BARS</h2>
           {yearsData}
-         {genderData.totalMale}
-         {categoryData.totatLiterature}
+          {genderData.totalMale}
+          {categoryData.totatLiterature}
           
         </div>
 
         <div className={toggleState === 2 ? "content  active-content" : "content"}>
           <h2>CIRCLE</h2>
           {yearsData}
-         {genderData.totalMale}
-         {categoryData.totatLiterature}
+          {genderData.totalMale}
+          {genderData.totalFemale}
+          {categoryData.totatLiterature}
         </div>
 
         <div className={toggleState === 3 ? "content  active-content" : "content"} >
           <h2>LINE</h2>
           {yearsData}
-         {genderData.totalMale}
-         {categoryData.totatLiterature}
+          {genderData.totalMale}
+          {categoryData.totatLiterature}
         </div>
 
         <div className={toggleState === 4 ? "content  active-content" : "content"} >
           <h2>AREA</h2>
           {yearsData}
-         {genderData.totalMale}
-         {categoryData.totatLiterature}
+          {genderData.totalMale}
+          {categoryData.totatLiterature}
         </div>
         
       </div>

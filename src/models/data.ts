@@ -3,6 +3,7 @@ export type Years = {
 }
 
 export type Gender = {
-    totalFemale: string,
-    totalMale: string
+    
+    totalFemale: any,
+    totalMale: any
 }
