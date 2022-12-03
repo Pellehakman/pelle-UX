@@ -23,6 +23,7 @@
     
 
     .logo-container{
+      background-color: $main-bg;
       @include flexCenter;
       flex: .5;
       
@@ -46,14 +47,15 @@
     }
 
     .info-container{
-      margin: 2rem;
+      padding: 2rem;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      background-color: $main-bg;
       
       flex: 2;
 
-      margin-top: 1.5rem;
+      
       font-family: 'Jost';
       color: white;
 
@@ -113,6 +115,7 @@
     }
 
     .year-container{
+      background-color: $main-bg;
       @include flexCenter;
       justify-content: flex-start;
       
@@ -138,6 +141,8 @@
       font-size: 1.5rem;
       font-family: 'Jost';
       color: rgb(185, 185, 185);
+      width: 50%;
+      margin: 0 auto;
       
       .bloc-tabs {
         display: flex;
@@ -172,9 +177,7 @@
       button {
         border: none;
       }
-      .anime{
-
-      }
+    
       .content-tabs {
         flex-grow : 1;
         background: rgb(10, 10, 10);
@@ -183,7 +186,7 @@
         }
         @keyframes contentTitle 
         { from {
-            transform: translateX(-30%);
+            transform: translateX(-10%);
           } to {
             transform: translateX(0%);
           }
@@ -193,25 +196,50 @@
         display: flex;
         flex-direction: column;
         background: rgb(10, 10, 10);
-        
-        
         display: none;
+        transition: 1s all;
+
         .content-p{
           font-size: 1rem;
           font-weight: 100;
         }
       }
      
+
+
       .active-content {
         padding: 4rem;
         display: flex;
         height: 100%;
         width: 90%;
         margin: 0 auto;
-        
 
+        .fadeIn{
+          animation: fadeIn .4s ease-in-out forwards ;
+        }
+
+        @keyframes fadeIn 
+        { from {
+            opacity: 0%;
+          } to {
+            opacity: 100%;
+          }
+        
+        }
+        .slideIn{
+          animation: slideIn .4s ease-in-out forwards ;
+        }
+        @keyframes slideIn 
+        { from {
+          transform: translateX(-30%);
+        } to {
+          transform: translateX(0%);
+          }
+        
+        }
       }
       
+       
 
 
     }

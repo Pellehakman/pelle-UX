@@ -20,15 +20,13 @@ function App() {
   const laureates = json_laureates
   const [overlay, setOverlay] = useState<boolean>(false);
 
-  const [whatAnimation, setWhatAnimation] = useState<string>('anime1')
+  const [whatAnimation, setWhatAnimation] = useState<string>('fadeIn')
   console.log(whatAnimation)
 
 
 
 // TOGGLE TAB
-  const toggleTab = (index: SetStateAction<number>) => {setToggleState(index)
-
-    ;};
+  const toggleTab = (index: SetStateAction<number>) => {setToggleState(index)}
 
 // FIND ALL WINNER BY YEAR
 let yearWinners = award.filter( (yearWinner) => {
@@ -155,7 +153,10 @@ useEffect(()=> {
           </div>
           
         </div>
-        <div className="year-container"><h1 className="display-year">{displayYear}</h1></div>
+        <div className="year-container">
+          <h1 className="display-year">{displayYear}</h1>
+          
+          </div>
         </div>
 
         <div className='tab-container'>
@@ -168,51 +169,63 @@ useEffect(()=> {
       </div>
 
       <div className="content-tabs">
-        <div className={toggleState === 1 ? "content anime active-content" : "content"}>
-          <h2 className="content-title">BARS</h2>
-          {yearsData}
-          {genderData.totalMale}
-          {categoryData.totatLiterature}
-          
+        <div className={toggleState === 1 ? "content active-content" : "content"}>
+        <h2 className="content-title">BARS</h2>
+
+        <div className={`${whatAnimation}`}>
+            {yearsData}
+            {genderData.totalMale}
+            {genderData.totalFemale}
+            {categoryData.totatLiterature}  
+        </div>
+  
         </div>
 
-        <div className={toggleState === 2 ? "content  active-content" : "content"}>
+        <div className={toggleState === 2 ? "content active-content" : "content"}>
         <h2 className="content-title">CIRCLE</h2>
-          {yearsData}
-          {genderData.totalMale}
-          {genderData.totalFemale}
-          {categoryData.totatLiterature}
+        <div className={`${whatAnimation}`}>
+            {yearsData}
+            {genderData.totalMale}
+            {genderData.totalFemale}
+            {categoryData.totatLiterature}  
+        </div>
         </div>
 
-        <div className={toggleState === 3 ? "content  active-content" : "content"} >
+        <div className={toggleState === 3 ? "content active-content" : "content"} >
         <h2 className="content-title">LINE</h2>
-          {yearsData}
-          {genderData.totalMale}
-          {categoryData.totatLiterature}
+        <div className={`${whatAnimation}`}>
+            {yearsData}
+            {genderData.totalMale}
+            {genderData.totalFemale}
+            {categoryData.totatLiterature}  
+        </div>
         </div>
 
-        <div className={toggleState === 4 ? "content  active-content" : "content"} >
+        <div className={toggleState === 4 ? "content active-content" : "content"} >
         <h2 className="content-title">AREA</h2>
-          {yearsData}
-          {genderData.totalMale}
-          {categoryData.totatLiterature}
+        <div className={`${whatAnimation}`}>
+            {yearsData}
+            {genderData.totalMale}
+            {genderData.totalFemale}
+            {categoryData.totatLiterature}  
+        </div>
         </div>
         
       </div>
       <div className="animation-container">
-        <p>animation</p>
+        <p>animation style</p>
           <form className="animation-form" onChange={(e) => setWhatAnimation(e.target.value)}>
         
         <div className="animation-input-container">
           
-          <input type="radio" id="fadeIn" name="fav_language" value="fadeIn"/>
-          <label for="fadeIn">slide in/out</label>
+          <input type="radio" id="fadeIn" name="fadeIn" value="fadeIn"/>
+          <label for="fadeIn">FADE IN</label>
           
         </div>
           
         <div className="animation-input-container">
-          <input type="radio" id="slideIn" name="fav_language" value="slideIn"/>
-          <label for="slideIn">slide in/out</label>
+          <input type="radio" id="slideIn" name="fadeIn" value="slideIn"/>
+          <label for="slideIn">SLIDE IN</label>
           
           
           
