@@ -1,37 +1,12 @@
 import { useState, useEffect, SetStateAction } from 'react'
-import reactLogo from './assets/react.svg'
 import './app.scss'
-import { nanoid } from 'nanoid'
 import { Years, Gender } from './models/data'
 import logo from './assets/Nobel_logo.svg'
 import './styles/variables.scss';
 import json_laureates from './data/json_laureates.json'
 import json_award from './data/json_award.json'
-import React from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement
- 
-} from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import { Line, Pie } from 'react-chartjs-2';
-
-
-
-
-// 1.Antalet pristagare inom de olika kategorierna, för ett valt år. 
-// 2. med möjlighet att välja årtal på ett användarvänligt sätt
-// 3. Fördelningen mellan män och kvinnor bland pristagare (cirkeldiagram)
-// 4. Hur många gånger som Nobelpriset delats ut, inom varje kategori
-
-
-
 
 function App() {
   const [obj, setObj] = useState<Years[]>([])
@@ -43,17 +18,22 @@ function App() {
   const [categoryData, setCategoryData ] = useState([])
   const award = json_award
   const laureates = json_laureates
-
   const [overlay, setOverlay] = useState<boolean>(false);
-  
+
+  const [whatAnimation, setWhatAnimation] = useState<string>('anime1')
+  console.log(whatAnimation)
 
 
-  const toggleTab = (index: SetStateAction<number>) => {setToggleState(index);};
-  
-  let yearWinners = award.filter( (yearWinner) => {
-    return yearWinner.awardYear === `${displayYear}`;
-  });
 
+// TOGGLE TAB
+  const toggleTab = (index: SetStateAction<number>) => {setToggleState(index)
+
+    ;};
+
+// FIND ALL WINNER BY YEAR
+let yearWinners = award.filter( (yearWinner) => {
+  return yearWinner.awardYear === `${displayYear}`;
+});
 let laureatesWinners:any = yearWinners.map((f) => {
   if(f.hasOwnProperty('laureates')){
     return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates?.map(r => r.id).length} winner</div>)
@@ -62,13 +42,11 @@ let laureatesWinners:any = yearWinners.map((f) => {
   }
 })
 
-//find all male only
+// FIND ALL GENDER
 let maleGender = laureates.filter((f) => {
   if (f.gender === 'male'){
   return (f.gender)
   }});
-
-//find all female only
 let femaleGender = laureates.filter((f) => {
   if (f.gender === 'female'){
   return (f.gender)
@@ -79,23 +57,18 @@ let prices:any = laureates.map(f => f.nobelPrizes.map(v => v.category.en)[0])
 let Chemistry = prices.filter((f: string) => {
   if (f === 'Chemistry'){
     return (f)}});
-
 let Literature = prices.filter((f: string) => {
   if (f === 'Literature'){
     return (f)}});
-
 let Peace = prices.filter((f: string) => {
   if (f === 'Peace'){
     return (f)}});
-
 let Physics = prices.filter((f: string) => {
   if (f === 'Physics'){
     return (f)}});
-
 let PhysiologyorMedicine = prices.filter((f: string) => {
   if (f === 'Physiology or Medicine'){
     return (f)}});
-
 let EconomicSciences = prices.filter((f: string) => {
   if (f === 'Economic Sciences'){
     return (f)}});
@@ -123,6 +96,7 @@ let totalGender:any = {
   totalFemale: femaleGender.length,
   totalMale: maleGender.length
 }
+// WHAT TO SHOW AND NOT SHOW
 const displayData = () => {
   if (question === 'year'){
     setYearsData(laureatesWinners)
@@ -141,10 +115,10 @@ const displayData = () => {
     setOverlay(false)
   } 
 }
+// USE EFFECTS
 useEffect(()=> {
   createYears() 
 }, [])
-
 useEffect(()=> {
   displayData()
 }, [question, displayYear])
@@ -169,8 +143,8 @@ useEffect(()=> {
             </select>
             </div>
             {overlay && 
-              <div className='info-q1'>
-            <h3 className='info-h3'>What Year?</h3>
+              <div className='info-q1 year'>
+            <h3 className='info-h3 '>What Year?</h3>
 
             <select className='select' onChange={(e) => setDisplayYear(e.currentTarget.value)}>
               {obj.map((f) => <option key={f.year}>{f.year}</option>)}
@@ -181,7 +155,7 @@ useEffect(()=> {
           </div>
           
         </div>
-        <div className="year-container"><h1>{displayYear}</h1></div>
+        <div className="year-container"><h1 className="display-year">{displayYear}</h1></div>
         </div>
 
         <div className='tab-container'>
@@ -194,8 +168,8 @@ useEffect(()=> {
       </div>
 
       <div className="content-tabs">
-        <div className={toggleState === 1 ? "content  active-content" : "content"}>
-          <h2>BARS</h2>
+        <div className={toggleState === 1 ? "content anime active-content" : "content"}>
+          <h2 className="content-title">BARS</h2>
           {yearsData}
           {genderData.totalMale}
           {categoryData.totatLiterature}
@@ -203,7 +177,7 @@ useEffect(()=> {
         </div>
 
         <div className={toggleState === 2 ? "content  active-content" : "content"}>
-          <h2>CIRCLE</h2>
+        <h2 className="content-title">CIRCLE</h2>
           {yearsData}
           {genderData.totalMale}
           {genderData.totalFemale}
@@ -211,18 +185,41 @@ useEffect(()=> {
         </div>
 
         <div className={toggleState === 3 ? "content  active-content" : "content"} >
-          <h2>LINE</h2>
+        <h2 className="content-title">LINE</h2>
           {yearsData}
           {genderData.totalMale}
           {categoryData.totatLiterature}
         </div>
 
         <div className={toggleState === 4 ? "content  active-content" : "content"} >
-          <h2>AREA</h2>
+        <h2 className="content-title">AREA</h2>
           {yearsData}
           {genderData.totalMale}
           {categoryData.totatLiterature}
         </div>
+        
+      </div>
+      <div className="animation-container">
+        <p>animation</p>
+          <form className="animation-form" onChange={(e) => setWhatAnimation(e.target.value)}>
+        
+        <div className="animation-input-container">
+          
+          <input type="radio" id="fadeIn" name="fav_language" value="fadeIn"/>
+          <label for="fadeIn">slide in/out</label>
+          
+        </div>
+          
+        <div className="animation-input-container">
+          <input type="radio" id="slideIn" name="fav_language" value="slideIn"/>
+          <label for="slideIn">slide in/out</label>
+          
+          
+          
+        </div>
+
+        </form>
+        
         
       </div>
     </div>
