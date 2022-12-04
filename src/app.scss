@@ -141,7 +141,7 @@
       font-size: 1.5rem;
       font-family: 'Jost';
       color: rgb(185, 185, 185);
-      width: 50%;
+      width: 60%;
       margin: 0 auto;
       
       .bloc-tabs {
@@ -157,7 +157,7 @@
         align-items: center;
         flex: 1;
         display: flex;
-        background: rgb(24, 24, 24);
+        
         cursor: pointer;
         height: 2.5rem;
         
@@ -167,7 +167,7 @@
    
       .active-tabs  {
         transition: .1s all ease-out;
-        background: rgb(10, 10, 10);
+        
         
         
        
@@ -179,6 +179,7 @@
       }
     
       .content-tabs {
+        height: 40%;
         flex-grow : 1;
         background: rgb(10, 10, 10);
         .content-title{
@@ -195,7 +196,7 @@
       .content {
         display: flex;
         flex-direction: column;
-        background: rgb(10, 10, 10);
+      
         display: none;
         transition: 1s all;
 
@@ -208,10 +209,11 @@
 
 
       .active-content {
-        padding: 4rem;
+        overflow: hidden;
+       
         display: flex;
         height: 100%;
-        width: 90%;
+       padding: 1rem;
         margin: 0 auto;
 
         .fadeIn{
@@ -249,6 +251,7 @@
         align-items: flex-start;
         padding: 1rem;
         background-color: rgb(10, 10, 10);
+        
       
       .animation-form{
         font-size: .5em;
@@ -265,3 +268,18 @@
     }
   
 } 
+.tab1{
+  background-color: rgb(34, 34, 34);
+}
+.tab2{
+  background-color: rgb(29, 29, 29);
+}
+.tab3{
+  background-color: rgb(20, 20, 20);
+}
+.tab4{
+  background-color: rgb(15, 15, 15);
+}
+.canvas{
+  height: 10rem;
+}

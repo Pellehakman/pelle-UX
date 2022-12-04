@@ -6,13 +6,25 @@ import './styles/variables.scss';
 import json_laureates from './data/json_laureates.json'
 import json_award from './data/json_award.json'
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import { Line, Pie } from 'react-chartjs-2';
+import { Line, Doughnut } from 'react-chartjs-2';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+  
+);
 
 function App() {
   const [obj, setObj] = useState<Years[]>([])
   const [displayYear, setDisplayYear] = useState<string>('1901')
   const [toggleState, setToggleState] = useState(1);
-  const [question, setQuestion] = useState<string>('year')
+  const [question, setQuestion] = useState<string>('category')
   const [yearsData, setYearsData ] = useState([])
   const [genderData, setGenderData ] = useState([])
   const [categoryData, setCategoryData ] = useState([])
@@ -20,8 +32,64 @@ function App() {
   const laureates = json_laureates
   const [overlay, setOverlay] = useState<boolean>(false);
 
+  const [chartData, setChartData ] = useState<Object[]>([])
+
   const [whatAnimation, setWhatAnimation] = useState<string>('fadeIn')
-  console.log(whatAnimation)
+  // console.log(Object.values(chartData))
+
+
+   const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        
+      },
+    },
+  };
+  
+  const labels = Object.keys(chartData)
+
+ 
+   const data = {
+    labels,
+    datasets: [
+      {
+        
+        data: (Object.values(chartData)),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(255, 206, 86, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(153, 102, 255, 0.8)',
+          'rgba(255, 159, 64, 0.8)',
+        ],
+        
+        borderWidth: 1,
+
+        
+      },
+      
+      
+    ],
+    
+  };
+  
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32,19 +100,41 @@ function App() {
 let yearWinners = award.filter( (yearWinner) => {
   return yearWinner.awardYear === `${displayYear}`;
 });
+
+
+
+// let laureatesWinners:any = yearWinners.map((f) => {
+//   if(f.hasOwnProperty('laureates')){
+//     return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates?.map(r => r.id).length} winner</div>)
+//   } else {
+//     return
+//   }
+// })
+
 let laureatesWinners:any = yearWinners.map((f) => {
   if(f.hasOwnProperty('laureates')){
-    return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates?.map(r => r.id).length} winner</div>)
+    return(f.laureates?.map(r => r.id).length)
   } else {
-    return
+    return(0)
   }
 })
+
+
+
+
+console.log(laureatesWinners)
+
+
+
+
 
 // FIND ALL GENDER
 let maleGender = laureates.filter((f) => {
   if (f.gender === 'male'){
   return (f.gender)
   }});
+
+ 
 let femaleGender = laureates.filter((f) => {
   if (f.gender === 'female'){
   return (f.gender)
@@ -83,12 +173,12 @@ const createYears = () => {
   }
 }
 let winStatistics:any = {
-  totatLiterature: Literature.length,
-  totalChemistry: Chemistry.length,
-  totalPhysiologyorMedicine: PhysiologyorMedicine.length, 
-  totalPhysics: Physics.length,
-  totalPeace: Peace.length,
-  totalEconomicSciences: EconomicSciences.length
+  Literature: Literature.length,
+  Chemistry: Chemistry.length,
+  ['Physiology or Medicine']: PhysiologyorMedicine.length, 
+  Physics: Physics.length,
+  Peace: Peace.length,
+  ['Economic and Sciences']: EconomicSciences.length
 }
 let totalGender:any = {
   totalFemale: femaleGender.length,
@@ -97,16 +187,19 @@ let totalGender:any = {
 // WHAT TO SHOW AND NOT SHOW
 const displayData = () => {
   if (question === 'year'){
+    setChartData(laureatesWinners)
     setYearsData(laureatesWinners)
     setGenderData([])
     setCategoryData([])
     setOverlay(true)
   } if (question === 'gender'){
+    setChartData(totalGender)
     setGenderData(totalGender)
     setCategoryData([])
     setYearsData([])
     setOverlay(false)
   } if (question === 'category'){
+    setChartData(winStatistics)
     setCategoryData(winStatistics)
     setGenderData([])
     setYearsData([])
@@ -135,9 +228,9 @@ useEffect(()=> {
             <div className='info-q1'>
             <h3 className='info-h3'>What do you want to know?</h3>
             <select className='select' onChange={(e) => setQuestion(e.currentTarget.value)}>
+              <option value="category">Nobel Prizes by Catagory?</option>
               <option value="year">Nobel Prizes by Year?</option>
               <option value="gender">Nobel Prizes by Gender?</option>
-              <option value="category">Nobel Prizes by Catagory?</option>
             </select>
             </div>
             {overlay && 
@@ -162,52 +255,46 @@ useEffect(()=> {
         <div className='tab-container'>
         
       <div className="bloc-tabs">
-        <button className={toggleState === 1 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(1)}>BARS</button>
-        <button className={toggleState === 2 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(2)}>CIRCLE</button>
-        <button className={toggleState === 3 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(3)}>LINE </button>
-        <button className={toggleState === 4 ? "tabs active-tabs" : "tabs"} onClick={() => toggleTab(4)}>AREA</button>
+        <button className={toggleState === 1 ? "tabs tab1 active-tabs" : "tabs tab1"} onClick={() => toggleTab(1)}>BARS</button>
+        <button className={toggleState === 2 ? "tabs tab2 active-tabs" : "tabs tab2"} onClick={() => toggleTab(2)}>CIRCLE</button>
+        <button className={toggleState === 3 ? "tabs tab3 active-tabs" : "tabs tab3"} onClick={() => toggleTab(3)}>LINE </button>
+        <button className={toggleState === 4 ? "tabs tab4 active-tabs" : "tabs tab4"} onClick={() => toggleTab(4)}>AREA</button>
       </div>
 
       <div className="content-tabs">
-        <div className={toggleState === 1 ? "content active-content" : "content"}>
+        <div className={toggleState === 1 ? "content tab1 active-content" : "content"}>
         <h2 className="content-title">BARS</h2>
 
         <div className={`${whatAnimation}`}>
-            {yearsData}
-            {genderData.totalMale}
-            {genderData.totalFemale}
-            {categoryData.totatLiterature}  
+            
+            
         </div>
   
         </div>
 
-        <div className={toggleState === 2 ? "content active-content" : "content"}>
+        <div className={toggleState === 2 ? "content tab2 active-content" : "content"}>
         <h2 className="content-title">CIRCLE</h2>
-        <div className={`${whatAnimation}`}>
-            {yearsData}
-            {genderData.totalMale}
-            {genderData.totalFemale}
-            {categoryData.totatLiterature}  
+        <div className="canvass">
+          <div className={`${whatAnimation}`}>
+              <Doughnut data={data} />
+              
+          </div>
         </div>
+        
         </div>
 
-        <div className={toggleState === 3 ? "content active-content" : "content"} >
+        <div className={toggleState === 3 ? "content tab3 active-content" : "content"} >
         <h2 className="content-title">LINE</h2>
         <div className={`${whatAnimation}`}>
-            {yearsData}
-            {genderData.totalMale}
-            {genderData.totalFemale}
-            {categoryData.totatLiterature}  
+        <Line options={options} data={data} />
+            
         </div>
         </div>
 
-        <div className={toggleState === 4 ? "content active-content" : "content"} >
+        <div className={toggleState === 4 ? "content tab4 active-content" : "content"} >
         <h2 className="content-title">AREA</h2>
         <div className={`${whatAnimation}`}>
-            {yearsData}
-            {genderData.totalMale}
-            {genderData.totalFemale}
-            {categoryData.totatLiterature}  
+            
         </div>
         </div>
         
@@ -219,13 +306,13 @@ useEffect(()=> {
         <div className="animation-input-container">
           
           <input type="radio" id="fadeIn" name="fadeIn" value="fadeIn"/>
-          <label for="fadeIn">FADE IN</label>
+          <label htmlFor="fadeIn">FADE IN</label>
           
         </div>
           
         <div className="animation-input-container">
           <input type="radio" id="slideIn" name="fadeIn" value="slideIn"/>
-          <label for="slideIn">SLIDE IN</label>
+          <label htmlFor="slideIn">SLIDE IN</label>
           
           
           
