@@ -208,19 +208,19 @@ let totalGender:any = {
 const displayData = () => {
   if (question === 'year'){
     setChartData(winnerByYear)
-    setYearsData(laureatesWinners)
+    // setYearsData(laureatesWinners)
     setGenderData([])
     setCategoryData([])
     setOverlay(true)
   } if (question === 'gender'){
     setChartData(totalGender)
-    setGenderData(totalGender)
+    // setGenderData(totalGender)
     setCategoryData([])
     setYearsData([])
     setOverlay(false)
   } if (question === 'category'){
     setChartData(winStatistics)
-    setCategoryData(winStatistics)
+    // setCategoryData(winStatistics)
     setGenderData([])
     setYearsData([])
     setOverlay(false)
@@ -286,6 +286,7 @@ useEffect(()=> {
         <h2 className="content-title">BARS</h2>
 
         <div className={`${whatAnimation}`}>
+         
         <Bar options={options} data={data}/>
             
             
