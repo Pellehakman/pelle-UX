@@ -19,6 +19,7 @@
   
   .hero-container{
     display: flex;
+    max-height: 15rem;
     flex: .5;
     
 
@@ -30,12 +31,10 @@
       
       .logo{
         width: 60%;
-        
-       
-        animation: yo 99s infinite forwards linear ;
+        animation: logo 99s infinite forwards linear ;
         transform:rotate(104deg)
       }
-      @keyframes yo {
+      @keyframes logo {
         0% {
           transform: rotate(0deg)
         }
@@ -60,7 +59,7 @@
       color: white;
 
       .info-h1{
-        font-size: 4em;
+        font-size: 3.5em;
         font-weight: 400;
         line-height: 1em;
         
@@ -85,7 +84,7 @@
         }
         .info-h3{
           font-weight: 100;
-          font-size: 2em;
+          font-size: 1.5em;
 
         }
         .year{
@@ -102,7 +101,7 @@
         .select{
           margin-left: .5rem;
           font-weight: 100;
-          font-size: 2rem;
+          font-size: 1.5em;
           font-family: 'Jost';
           background-color: rgb(10, 10, 10) ;
           color: white;
@@ -217,7 +216,7 @@
         margin: 0 auto;
 
         .fadeIn{
-          animation: fadeIn .4s cubic-bezier(.79,.47,.51,1.42) forwards ;
+          animation: fadeIn .9s cubic-bezier(.79,.47,.51,1.42) forwards ;
         }
 
         @keyframes fadeIn 
@@ -229,7 +228,7 @@
         
         }
         .slideIn{
-          animation: slideIn .4s cubic-bezier(.79,.47,.51,1.42) forwards ;
+          animation: slideIn .9s cubic-bezier(.79,.47,.51,1.42) forwards ;
         }
         @keyframes slideIn 
         { from {
@@ -281,5 +280,6 @@
   background-color: rgb(15, 15, 15);
 }
 .canvas{
-  height: 10rem;
+  @include flexCenter;
+  height: 25rem;
 }

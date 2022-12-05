@@ -48,7 +48,6 @@ function App() {
       },
       title: {
         display: true,
-        
       },
     },
   };
@@ -60,7 +59,7 @@ function App() {
     labels,
     datasets: [
       {
-        
+        label: `${question}`,
         data: (Object.values(chartData)),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: [
@@ -73,6 +72,7 @@ function App() {
         ],
         
         borderWidth: 1,
+        
 
         
       },
@@ -179,7 +179,7 @@ const createYears = () => {
 
 //---------------- ALL OBJECTS WITH DATA //---------------- //
 
-let winnerByYear = {
+let winnerByYear:any = {
   Chemistry: ChemistryYear.map(f => f.laureates?.map(v => v.id))[0]?.length,
   Literature: LiteratureYear.map(f => f.laureates?.map(v => v.id))[0]?.length,
   Peace: PeaceYear.map(f => f.laureates?.map(v => v.id))[0]?.length,
@@ -283,45 +283,42 @@ useEffect(()=> {
 
       <div className="content-tabs">
         <div className={toggleState === 1 ? "content tab1 active-content" : "content"}>
-        <h2 className="content-title">BARS</h2>
-
-        <div className={`${whatAnimation}`}>
-         
-        <Bar options={options} data={data}/>
-            
-            
-        </div>
-  
+          <h2 className="content-title">BARS</h2>
+            <div className={`${whatAnimation}`}>
+              <div className="canvas">
+                <Bar options={options} data={data}/>  
+              </div>
+          </div>
         </div>
 
         <div className={toggleState === 2 ? "content tab2 active-content" : "content"}>
-        <h2 className="content-title">CIRCLE</h2>
-        <div className="canvass">
-          <div className={`${whatAnimation}`}>
-              <Doughnut data={data} />
-              
-          </div>
-        </div>
-        
+          <h2 className="content-title">CIRCLE</h2>
+            <div className={`${whatAnimation}`}>
+              <div className="canvas">
+                <Doughnut data={data} />
+              </div>
+            </div>
         </div>
 
         <div className={toggleState === 3 ? "content tab3 active-content" : "content"} >
-        <h2 className="content-title">LINE</h2>
-        <div className={`${whatAnimation}`}>
-        <Line options={options} data={data} />
-            
-        </div>
+          <h2 className="content-title">LINE</h2>
+            <div className={`${whatAnimation}`}>
+              <div className="canvas">
+                <Line options={options} data={data} />
+              </div>
+          </div>
         </div>
 
         <div className={toggleState === 4 ? "content tab4 active-content" : "content"} >
-        <h2 className="content-title">AREA</h2>
-        <div className={`${whatAnimation}`}>
-        <PolarArea data={data} />
-            
-        </div>
-        </div>
-        
+          <h2 className="content-title">AREA</h2>
+            <div className={`${whatAnimation}`}>
+              <div className="canvas">
+                <PolarArea data={data} />
+              </div>
+            </div>
+          </div>
       </div>
+
       <div className="animation-container">
         <p>animation style</p>
           <form className="animation-form" onChange={(e) => setWhatAnimation(e.target.value)}>
