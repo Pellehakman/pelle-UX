@@ -33,12 +33,15 @@ function App() {
   const award = json_award
   const laureates = json_laureates
   const [overlay, setOverlay] = useState<boolean>(false);
-
   const [chartData, setChartData ] = useState<Object[]>([])
+  const [whatAnimation, setWhatAnimation] = useState<any>('fadeIn')
 
-  const [whatAnimation, setWhatAnimation] = useState<string>('fadeIn')
-  // console.log(Object.values(chartData))
+//handle animation style
+const handleFormInput: (e:any) => void = (e:any) => {
+  const {value } = e.target;
+  setWhatAnimation(value)
 
+}
 
    const options = {
     responsive: true,
@@ -321,24 +324,17 @@ useEffect(()=> {
 
       <div className="animation-container">
         <p>animation style</p>
-          <form className="animation-form" onChange={(e) => setWhatAnimation(e.target.value)}>
-        
+          <div className="animation-form">
         <div className="animation-input-container">
-          
-          <input type="radio" id="fadeIn" name="fadeIn" value="fadeIn"/>
+          <input type="radio" id="fadeIn" name="fadeIn" value="fadeIn" onChange={(e) => handleFormInput(e)}/>
           <label htmlFor="fadeIn">FADE IN</label>
-          
         </div>
           
         <div className="animation-input-container">
-          <input type="radio" id="slideIn" name="fadeIn" value="slideIn"/>
+          <input type="radio" id="slideIn" name="fadeIn" value="slideIn" onChange={(e) => handleFormInput(e)}/>
           <label htmlFor="slideIn">SLIDE IN</label>
-          
-          
-          
         </div>
-
-        </form>
+      </div>
         
         
       </div>
