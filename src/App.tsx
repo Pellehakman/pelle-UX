@@ -26,7 +26,7 @@ function App() {
   const [obj, setObj] = useState<Years[]>([])
   const [displayYear, setDisplayYear] = useState<string>('1901')
   const [toggleState, setToggleState] = useState(1);
-  const [question, setQuestion] = useState<string>('category')
+  const [question, setQuestion] = useState<string>('Total prizes by category')
   const [yearsData, setYearsData ] = useState([])
   const [genderData, setGenderData ] = useState([])
   const [categoryData, setCategoryData ] = useState([])
@@ -72,6 +72,7 @@ const handleFormInput: (e:any) => void = (e:any) => {
           'rgba(75, 192, 192, 0.8)',
           'rgba(153, 102, 255, 0.8)',
           'rgba(255, 159, 64, 0.8)',
+          
         ],
         
         borderWidth: 1,
@@ -209,19 +210,19 @@ let totalGender:any = {
 
 // WHAT TO SHOW AND NOT SHOW
 const displayData = () => {
-  if (question === 'year'){
+  if (question === 'All prizes by year'){
     setChartData(winnerByYear)
     // setYearsData(laureatesWinners)
     setGenderData([])
     setCategoryData([])
     setOverlay(true)
-  } if (question === 'gender'){
+  } if (question === 'Total prizes by gender'){
     setChartData(totalGender)
     // setGenderData(totalGender)
     setCategoryData([])
     setYearsData([])
     setOverlay(false)
-  } if (question === 'category'){
+  } if (question === 'Total prizes by category'){
     setChartData(winStatistics)
     // setCategoryData(winStatistics)
     setGenderData([])
@@ -251,9 +252,9 @@ useEffect(()=> {
             <div className='info-q1'>
             <h3 className='info-h3'>What do you want to know?</h3>
             <select className='select' onChange={(e) => setQuestion(e.currentTarget.value)}>
-              <option value="category">Nobel Prizes by Catagory?</option>
-              <option value="year">Nobel Prizes by Year?</option>
-              <option value="gender">Nobel Prizes by Gender?</option>
+              <option value="Total prizes by category">Total Nobel Prizes by Catagory?</option>
+              <option value="All prizes by year">Nobel Prizes by Year?</option>
+              <option value="Total prizes by gender">Total Nobel Prizes by Gender?</option>
             </select>
             </div>
             {overlay && 
