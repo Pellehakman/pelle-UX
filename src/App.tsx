@@ -5,15 +5,17 @@ import logo from './assets/Nobel_logo.svg'
 import './styles/variables.scss';
 import json_laureates from './data/json_laureates.json'
 import json_award from './data/json_award.json'
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import { Line, Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement, BarElement, RadialLinearScale } from 'chart.js';
+import { Line, Doughnut, Bar, PolarArea } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
+  RadialLinearScale,
   LinearScale,
   PointElement,
   LineElement,
   ArcElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
@@ -82,50 +84,52 @@ function App() {
   
 
 
-
-
-
-
-
-
-
-
-
-
-
 // TOGGLE TAB
-  const toggleTab = (index: SetStateAction<number>) => {setToggleState(index)}
+const toggleTab = (index: SetStateAction<number>) => {setToggleState(index)}
 
-// FIND ALL WINNER BY YEAR
-let yearWinners = award.filter( (yearWinner) => {
+// Fitler and get all awards with specific year 
+let yearWinners = award.filter((yearWinner) => {
   return yearWinner.awardYear === `${displayYear}`;
 });
 
-
-
-// let laureatesWinners:any = yearWinners.map((f) => {
-//   if(f.hasOwnProperty('laureates')){
-//     return (<div key={f.category.en}> in {f.category.en} this year, there was {f.laureates?.map(r => r.id).length} winner</div>)
-//   } else {
-//     return
-//   }
-// })
-
-let laureatesWinners:any = yearWinners.map((f) => {
+// if "laureates" exists
+let laureatesWinners = yearWinners.filter((f) => {
   if(f.hasOwnProperty('laureates')){
-    return(f.laureates?.map(r => r.id).length)
-  } else {
-    return(0)
+    return (f.laureates?.map(v => v.id));
   }
+});
+
+//find all laureates who won in a year
+let ChemistryYear = laureatesWinners.filter((f) => {
+  if (f.category.en === 'Chemistry'){
+    return (f.laureates?.map(v => v.id))
+  } 
 })
-
-
-
-
-console.log(laureatesWinners)
-
-
-
+let LiteratureYear = laureatesWinners.filter((f) => {
+  if (f.category.en === 'Literature'){
+    return (f.laureates?.map(v => v.id))
+  } 
+})
+let PeaceYear = laureatesWinners.filter((f) => {
+  if (f.category.en === 'Peace'){
+    return (f.laureates?.map(v => v.id))
+  } 
+})
+let PhysicsYear = laureatesWinners.filter((f) => {
+  if (f.category.en === 'Physics'){
+    return (f.laureates?.map(v => v.id))
+  } 
+})
+let PhysiologyorMedicineYear = laureatesWinners.filter((f) => {
+  if (f.category.en === 'Physiology or Medicine'){
+    return (f.laureates?.map(v => v.id))
+  } 
+})
+let EconomicSciencesYear = laureatesWinners.filter((f) => {
+  if (f.category.en === 'Economic Sciences'){
+    return (f.laureates?.map(v => v.id))
+  } 
+})
 
 
 // FIND ALL GENDER
@@ -133,8 +137,6 @@ let maleGender = laureates.filter((f) => {
   if (f.gender === 'male'){
   return (f.gender)
   }});
-
- 
 let femaleGender = laureates.filter((f) => {
   if (f.gender === 'female'){
   return (f.gender)
@@ -172,9 +174,22 @@ const createYears = () => {
     arr.push(years)
   }
 }
+
+
+
+//---------------- ALL OBJECTS WITH DATA //---------------- //
+
+let winnerByYear = {
+  Chemistry: ChemistryYear.map(f => f.laureates?.map(v => v.id))[0]?.length,
+  Literature: LiteratureYear.map(f => f.laureates?.map(v => v.id))[0]?.length,
+  Peace: PeaceYear.map(f => f.laureates?.map(v => v.id))[0]?.length,
+  Physics: PhysicsYear.map(f => f.laureates?.map(v => v.id))[0]?.length,
+  ['Physiology or Medicine']: PhysiologyorMedicineYear.map(f => f.laureates?.map(v => v.id))[0]?.length,
+  ['Economic and Sciences']: EconomicSciencesYear.map(f => f.laureates?.map(v => v.id))[0]?.length,
+}
 let winStatistics:any = {
-  Literature: Literature.length,
   Chemistry: Chemistry.length,
+  Literature: Literature.length,
   ['Physiology or Medicine']: PhysiologyorMedicine.length, 
   Physics: Physics.length,
   Peace: Peace.length,
@@ -184,10 +199,15 @@ let totalGender:any = {
   totalFemale: femaleGender.length,
   totalMale: maleGender.length
 }
+
+
+
+
+
 // WHAT TO SHOW AND NOT SHOW
 const displayData = () => {
   if (question === 'year'){
-    setChartData(laureatesWinners)
+    setChartData(winnerByYear)
     setYearsData(laureatesWinners)
     setGenderData([])
     setCategoryData([])
@@ -266,6 +286,7 @@ useEffect(()=> {
         <h2 className="content-title">BARS</h2>
 
         <div className={`${whatAnimation}`}>
+        <Bar options={options} data={data}/>
             
             
         </div>
@@ -294,6 +315,7 @@ useEffect(()=> {
         <div className={toggleState === 4 ? "content tab4 active-content" : "content"} >
         <h2 className="content-title">AREA</h2>
         <div className={`${whatAnimation}`}>
+        <PolarArea data={data} />
             
         </div>
         </div>

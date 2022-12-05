@@ -89,7 +89,7 @@
 
         }
         .year{
-          animation: select .1s ease-out forwards ;
+          animation: select .3s cubic-bezier(.79,.47,.51,1.42) forwards ;
         }
         @keyframes select 
         { from {
@@ -183,7 +183,7 @@
         flex-grow : 1;
         background: rgb(10, 10, 10);
         .content-title{
-          animation: contentTitle .2s ease-out forwards ;
+          animation: contentTitle .5s cubic-bezier(.79,.47,.51,1.42) forwards ;
         }
         @keyframes contentTitle 
         { from {
@@ -217,7 +217,7 @@
         margin: 0 auto;
 
         .fadeIn{
-          animation: fadeIn .4s ease-in-out forwards ;
+          animation: fadeIn .4s cubic-bezier(.79,.47,.51,1.42) forwards ;
         }
 
         @keyframes fadeIn 
@@ -229,7 +229,7 @@
         
         }
         .slideIn{
-          animation: slideIn .4s ease-in-out forwards ;
+          animation: slideIn .4s cubic-bezier(.79,.47,.51,1.42) forwards ;
         }
         @keyframes slideIn 
         { from {
