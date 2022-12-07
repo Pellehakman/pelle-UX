@@ -40,9 +40,7 @@ function App() {
 const handleFormInput: (e:any) => void = (e:any) => {
   const {value } = e.target;
   setWhatAnimation(value)
-
 }
-
    const options = {
     responsive: true,
     plugins: {
@@ -54,11 +52,8 @@ const handleFormInput: (e:any) => void = (e:any) => {
       },
     },
   };
-  
   const labels = Object.keys(chartData)
-
- 
-   const data = {
+  const data = {
     labels,
     datasets: [
       {
@@ -72,22 +67,13 @@ const handleFormInput: (e:any) => void = (e:any) => {
           'rgba(75, 192, 192, 0.8)',
           'rgba(153, 102, 255, 0.8)',
           'rgba(255, 159, 64, 0.8)',
-          
         ],
         
         borderWidth: 1,
-        
-
-        
       },
-      
-      
     ],
-    
   };
   
-
-
 // TOGGLE TAB
 const toggleTab = (index: SetStateAction<number>) => {setToggleState(index)}
 
@@ -135,7 +121,6 @@ let EconomicSciencesYear = laureatesWinners.filter((f) => {
   } 
 })
 
-
 // FIND ALL GENDER
 let maleGender = laureates.filter((f) => {
   if (f.gender === 'male'){
@@ -179,8 +164,6 @@ const createYears = () => {
   }
 }
 
-
-
 //---------------- ALL OBJECTS WITH DATA //---------------- //
 
 let winnerByYear:any = {
@@ -203,11 +186,6 @@ let totalGender:any = {
   totalFemale: femaleGender.length,
   totalMale: maleGender.length
 }
-
-
-
-
-
 // WHAT TO SHOW AND NOT SHOW
 const displayData = () => {
   if (question === 'All prizes by year'){
@@ -270,11 +248,10 @@ useEffect(()=> {
           </div>
           
         </div>
-        <div className="year-container">
-          <h1 className="display-year">{displayYear}</h1>
-          
+          <div className="year-container">
+            <h1 className="display-year">{displayYear}</h1>
           </div>
-        </div>
+      </div>
 
         <div className='tab-container'>
         
@@ -326,31 +303,20 @@ useEffect(()=> {
       <div className="animation-container">
         <p>animation style</p>
           <div className="animation-form">
-        <div className="animation-input-container">
-          <input type="radio" id="fadeIn" name="fadeIn" value="fadeIn" onChange={(e) => handleFormInput(e)}/>
-          <label htmlFor="fadeIn">FADE IN</label>
-        </div>
+            <div className="animation-input-container">
+              <input type="radio" id="fadeIn" name="fadeIn" value="fadeIn" onChange={(e) => handleFormInput(e)}/>
+              <label htmlFor="fadeIn">FADE IN</label>
+            </div>
           
-        <div className="animation-input-container">
-          <input type="radio" id="slideIn" name="fadeIn" value="slideIn" onChange={(e) => handleFormInput(e)}/>
-          <label htmlFor="slideIn">SLIDE IN</label>
-        </div>
-      </div>
-        
-        
-      </div>
-    </div>
-         
-        
-
+            <div className="animation-input-container">
+              <input type="radio" id="slideIn" name="fadeIn" value="slideIn" onChange={(e) => handleFormInput(e)}/>
+              <label htmlFor="slideIn">SLIDE IN</label>
+            </div>
+          </div>
         </div>
 
-        
-     
-
-      
-   
+      </div>
+    </div>  
   )
 }
-
 export default App
