@@ -7,7 +7,7 @@ import json_laureates from './data/json_laureates.json'
 import json_award from './data/json_award.json'
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement, BarElement, RadialLinearScale } from 'chart.js';
 import { Line, Doughnut, Bar, PolarArea } from 'react-chartjs-2';
-
+import anime from 'animejs'
 ChartJS.register(
   CategoryScale,
   RadialLinearScale,
@@ -35,6 +35,34 @@ function App() {
   const [overlay, setOverlay] = useState<boolean>(false);
   const [chartData, setChartData ] = useState<Object[]>([])
   const [whatAnimation, setWhatAnimation] = useState<any>('fadeIn')
+  
+
+  anime({
+    // inställningar
+    targets: '.fadeIn',
+   
+    direction: 'backwards',
+    easing: 'easeInOutQuad',
+
+    
+    translateY: [
+      
+      { value: 0, duration: 10},
+      { value: 100, duration: 100},
+      { value: -100, duration: 100},
+      { value: 0, duration: 100},
+    ],
+  
+    easing: 'easeInOutQuad',
+    loop: false
+  });
+  let firDigit = displayYear.slice(0,1)
+  let secDigit = displayYear.slice(1,2)
+  let thiDigit = displayYear.slice(2,3)
+  let fouDigit = displayYear.slice(3,4)
+console.log(firDigit, secDigit, thiDigit, fouDigit)
+
+
 
 //handle animation style
 const handleFormInput: (e:any) => void = (e:any) => {
@@ -246,10 +274,13 @@ useEffect(()=> {
             }
             
           </div>
-          
+        
         </div>
           <div className="year-container">
-            <h1 className="display-year">{displayYear}</h1>
+            <h1 className="display-year1">{firDigit}</h1>
+            <h1 className="display-year2">{secDigit}</h1>
+            <h1 className="display-year3">{thiDigit}</h1>
+            <h1 className="display-year4">{fouDigit}</h1>
           </div>
       </div>
 

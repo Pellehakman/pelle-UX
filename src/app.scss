@@ -117,15 +117,13 @@
       background-color: $main-bg;
       @include flexCenter;
       justify-content: flex-start;
-      
-      
       width: 10rem;
-      
       flex: 1;
       padding: 2rem;
       font-size: 3rem;
       font-family: 'Jost';
       color: #FAB017;
+     
       
     }
 
@@ -215,29 +213,29 @@
        padding: 1rem;
         margin: 0 auto;
 
-        .fadeIn{
-          animation: fadeIn .9s cubic-bezier(.79,.47,.51,1.42) forwards ;
-        }
+        // .fadeIn{
+        //   animation: fadeIn .9s cubic-bezier(.79,.47,.51,1.42) forwards ;
+        // }
 
-        @keyframes fadeIn 
-        { from {
-            opacity: 0%;
-          } to {
-            opacity: 100%;
-          }
+        // @keyframes fadeIn 
+        // { from {
+        //     opacity: 0%;
+        //   } to {
+        //     opacity: 100%;
+        //   }
         
-        }
-        .slideIn{
-          animation: slideIn .9s cubic-bezier(.79,.47,.51,1.42) forwards ;
-        }
-        @keyframes slideIn 
-        { from {
-          transform: translateX(-30%);
-        } to {
-          transform: translateX(0%);
-          }
+        // }
+        // .slideIn{
+        //   animation: slideIn .9s cubic-bezier(.79,.47,.51,1.42) forwards ;
+        // }
+        // @keyframes slideIn 
+        // { from {
+        //   transform: translateX(-30%);
+        // } to {
+        //   transform: translateX(0%);
+        //   }
         
-        }
+        // }
       }
       
        
