@@ -1,4 +1,4 @@
-import { useState, useEffect, SetStateAction } from 'react'
+import { useState, useEffect, SetStateAction, useRef } from 'react'
 import './app.scss'
 import { Years, Gender } from './models/data'
 import logo from './assets/Nobel_logo.svg'
@@ -29,9 +29,13 @@ function App() {
   const [displayYear, setDisplayYear] = useState<string>('1901')
   const [toggleState, setToggleState] = useState(1);
   const [question, setQuestion] = useState<string>('Total prizes by category')
-  const [overlay, setOverlay] = useState<boolean>(false);
+ 
   const [chartData, setChartData ] = useState<Object[]>([])
   const [whatAnimation, setWhatAnimation] = useState<any>('slideIn')
+  const [overlayYears, setOverlayYears] = useState<boolean>(false);
+  const [overlay, setOverlay] = useState<boolean>(false);
+ 
+  
 
   let digits = displayYear.split('')
 
@@ -40,6 +44,7 @@ function App() {
       setWhatAnimation(value)
   }
 // slide and fade
+
   useEffect(()=> {
     anime({
       targets: '.fadeIn',
@@ -89,6 +94,8 @@ useEffect(()=> {
     loop: false
   })
 }, [toggleState])
+
+
 
 
 // chart JS options and data
@@ -240,12 +247,16 @@ let totalGender:any = {
 // WHAT TO SHOW AND NOT SHOW
 const displayData = () => {
   if (question === 'All prizes by year'){
+    setOverlayYears(true)
     setOverlay(true)
     setChartData(winnerByYear)
   } if (question === 'Total prizes by gender'){
+    setOverlayYears(false)
     setOverlay(false)
     setChartData(totalGender)
+    
   } if (question === 'Total prizes by category'){
+    setOverlayYears(false)
     setOverlay(false)
     setChartData(winStatistics)
   } 
@@ -292,8 +303,9 @@ useEffect(()=> {
         
         </div>
           <div className="year-container">
+          {overlayYears && 
             <h1 className="display-year">{digits}</h1>
-            
+          }
           </div>
       </div>
 
