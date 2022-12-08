@@ -43,7 +43,7 @@ function App() {
     const { value } = e.target;
       setWhatAnimation(value)
   }
-// slide and fade
+// animation slide and fade
 
   useEffect(()=> {
     anime({
@@ -51,7 +51,7 @@ function App() {
       direction: 'forwards',
       opacity: [
         { value: 0, duration: 0},
-        { value: 1, duration: 800},
+        { value: 1, duration: 1000},
       ],
       easing: 'linear',
       loop: false
@@ -69,7 +69,7 @@ function App() {
     })
   }, [toggleState])
 
- // spin logo
+// animation logo
 useEffect(()=> {
   anime({
     targets: '.logo',
@@ -87,7 +87,7 @@ useEffect(()=> {
     direction: 'forwards',
     translateX: [
      
-      { value: -700, duration: 0},
+      { value: -300, duration: 0},
       { value: 0, duration: 500},
     ],
     easing: 'easeInOutQuad',
@@ -95,7 +95,23 @@ useEffect(()=> {
   })
 }, [toggleState])
 
-
+useEffect(()=> {
+  anime({
+    targets: '.display-year',
+    direction: 'forwards',
+    translateX: [
+      { value: 150, duration: 100},
+      { value: -150, duration: 0},
+      { value: 0, duration: 100},
+    ],
+    opacity: [
+      { value: 0, duration: 100},
+      { value: 1, duration: 100},
+    ],
+    easing: 'linear',
+    loop: false
+  })
+}, [displayYear])
 
 
 // chart JS options and data
