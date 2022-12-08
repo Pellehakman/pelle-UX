@@ -23,52 +23,75 @@ ChartJS.register(
 );
 
 function App() {
+  const award = json_award
+  const laureates = json_laureates
   const [obj, setObj] = useState<Years[]>([])
   const [displayYear, setDisplayYear] = useState<string>('1901')
   const [toggleState, setToggleState] = useState(1);
   const [question, setQuestion] = useState<string>('Total prizes by category')
-  const [yearsData, setYearsData ] = useState([])
-  const [genderData, setGenderData ] = useState([])
-  const [categoryData, setCategoryData ] = useState([])
-  const award = json_award
-  const laureates = json_laureates
   const [overlay, setOverlay] = useState<boolean>(false);
   const [chartData, setChartData ] = useState<Object[]>([])
-  const [whatAnimation, setWhatAnimation] = useState<any>('fadeIn')
-  
+  const [whatAnimation, setWhatAnimation] = useState<any>('slideIn')
 
+  let digits = displayYear.split('')
+
+  const handleFormInput: (e:any) => void = (e:any) => {
+    const { value } = e.target;
+      setWhatAnimation(value)
+  }
+// slide and fade
+  useEffect(()=> {
+    anime({
+      targets: '.fadeIn',
+      direction: 'forwards',
+      opacity: [
+        { value: 0, duration: 0},
+        { value: 1, duration: 800},
+      ],
+      easing: 'linear',
+      loop: false
+    })
+    anime({
+      targets: '.slideIn',
+      direction: 'forwards',
+      translateX: [
+        { value: 700, duration: 200},
+        { value: -700, duration: 0},
+        { value: 0, duration: 200},
+      ],
+      easing: 'linear',
+      loop: false
+    })
+  }, [toggleState])
+
+ // spin logo
+useEffect(()=> {
   anime({
-    // inställningar
-    targets: '.fadeIn',
-   
-    direction: 'backwards',
-    easing: 'easeInOutQuad',
+    targets: '.logo',
+    direction: 'forwards',
+    rotate: {
+      value: 360, duration: 4000},
+    easing: 'linear',
+    loop: true
+  })
+}, [])
 
-    
-    translateY: [
-      
-      { value: 0, duration: 10},
-      { value: 100, duration: 100},
-      { value: -100, duration: 100},
-      { value: 0, duration: 100},
+useEffect(()=> {
+  anime({
+    targets: '.content-title',
+    direction: 'forwards',
+    translateX: [
+     
+      { value: -700, duration: 0},
+      { value: 0, duration: 500},
     ],
-  
     easing: 'easeInOutQuad',
     loop: false
-  });
-  let firDigit = displayYear.slice(0,1)
-  let secDigit = displayYear.slice(1,2)
-  let thiDigit = displayYear.slice(2,3)
-  let fouDigit = displayYear.slice(3,4)
-console.log(firDigit, secDigit, thiDigit, fouDigit)
+  })
+}, [toggleState])
 
 
-
-//handle animation style
-const handleFormInput: (e:any) => void = (e:any) => {
-  const {value } = e.target;
-  setWhatAnimation(value)
-}
+// chart JS options and data
    const options = {
     responsive: true,
     plugins: {
@@ -217,25 +240,17 @@ let totalGender:any = {
 // WHAT TO SHOW AND NOT SHOW
 const displayData = () => {
   if (question === 'All prizes by year'){
-    setChartData(winnerByYear)
-    // setYearsData(laureatesWinners)
-    setGenderData([])
-    setCategoryData([])
     setOverlay(true)
+    setChartData(winnerByYear)
   } if (question === 'Total prizes by gender'){
+    setOverlay(false)
     setChartData(totalGender)
-    // setGenderData(totalGender)
-    setCategoryData([])
-    setYearsData([])
-    setOverlay(false)
   } if (question === 'Total prizes by category'){
-    setChartData(winStatistics)
-    // setCategoryData(winStatistics)
-    setGenderData([])
-    setYearsData([])
     setOverlay(false)
+    setChartData(winStatistics)
   } 
 }
+
 // USE EFFECTS
 useEffect(()=> {
   createYears() 
@@ -277,10 +292,8 @@ useEffect(()=> {
         
         </div>
           <div className="year-container">
-            <h1 className="display-year1">{firDigit}</h1>
-            <h1 className="display-year2">{secDigit}</h1>
-            <h1 className="display-year3">{thiDigit}</h1>
-            <h1 className="display-year4">{fouDigit}</h1>
+            <h1 className="display-year">{digits}</h1>
+            
           </div>
       </div>
 
@@ -334,15 +347,18 @@ useEffect(()=> {
       <div className="animation-container">
         <p>animation style</p>
           <div className="animation-form">
+
+          <div className="animation-input-container">
+              <input checked={whatAnimation === 'slideIn'} className="radio" type="radio" id="slideIn" name="fadeIn" value="slideIn" onChange={(e) => handleFormInput(e)}/>
+              <label htmlFor="slideIn">SLIDE IN</label>
+            </div>
+
             <div className="animation-input-container">
-              <input type="radio" id="fadeIn" name="fadeIn" value="fadeIn" onChange={(e) => handleFormInput(e)}/>
+              <input className="radio" type="radio" id="fadeIn" name="fadeIn" value="fadeIn" onChange={(e) => handleFormInput(e)}/>
               <label htmlFor="fadeIn">FADE IN</label>
             </div>
           
-            <div className="animation-input-container">
-              <input type="radio" id="slideIn" name="fadeIn" value="slideIn" onChange={(e) => handleFormInput(e)}/>
-              <label htmlFor="slideIn">SLIDE IN</label>
-            </div>
+            
           </div>
         </div>
 
