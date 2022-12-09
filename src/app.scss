@@ -1,100 +1,85 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300;500&display=swap');
-
-
 @import './styles/variables.scss';
 
-.tab-one-bg{
+.tab-one-bg {
   background-color: $tabs;
   transition: 1s all;
 }
 
-// font-family: 'Josefin Sans', sans-serif;
-// font-family: 'Jost', sans-serif;
-
-.app-container{
+.app-container {
   display: flex;
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  
-  .hero-container{
+
+  .hero-container {
     display: flex;
     max-height: 15rem;
     flex: .5;
-    
 
-    .logo-container{
+
+    .logo-container {
       background-color: $main-bg;
       @include flexCenter;
       flex: .5;
-      
-      
-      .logo{
-        width: 60%;
-        
+
+      .logo {
+        width: 40%;
       }
-      
     }
 
-    .info-container{
+    .info-container {
       padding: 2rem;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       background-color: $main-bg;
-      
       flex: 2;
-
-      
       font-family: 'Jost';
       color: white;
 
-      .info-h1{
+      .info-h1 {
         font-size: 3.5em;
         font-weight: 400;
         line-height: 1em;
-        
       }
-      .info-p{
-        
+
+      .info-p {
         font-weight: 100;
         margin-bottom: 1rem;
-        
-
       }
-      .info-select{
+
+      .info-select {
         flex-direction: column;
         font-size: 1rem;
         display: flex;
         align-items: flex-start;
-        
-        .info-q1{
+
+        .info-q1 {
           @include flexCenter;
-          
-          
         }
-        .info-h3{
+
+        .info-h3 {
           font-weight: 100;
           font-size: 1.5em;
 
         }
-       
-        .select{
+
+        .select {
           margin-left: .5rem;
           font-weight: 100;
           font-size: 1.5em;
           font-family: 'Jost';
-          background-color: rgb(10, 10, 10) ;
+          background-color: rgb(10, 10, 10);
           color: white;
           padding: .3rem;
           border: none;
           border-radius: .3rem;
         }
-        
       }
     }
 
-    .year-container{
+    .year-container {
       background-color: $main-bg;
       @include flexCenter;
       justify-content: flex-start;
@@ -104,127 +89,121 @@
       font-size: 3rem;
       font-family: 'Jost';
       color: #FAB017;
-     
-      
     }
-
   }
 
-    
-    .tab-container{
+
+  .tab-container {
+    display: flex;
+    background-color: black;
+    flex: 1;
+    flex-direction: column;
+    font-size: 1.5rem;
+    font-family: 'Jost';
+    color: rgb(185, 185, 185);
+    width: 60%;
+    margin: 0 auto;
+
+    .bloc-tabs {
       display: flex;
-      background-color: black;
-      flex: 1;
-      flex-direction: column;
-      font-size: 1.5rem;
+    }
+
+    .tabs {
       font-family: 'Jost';
-      color: rgb(185, 185, 185);
-      width: 60%;
+      color: white;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: 300;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      display: flex;
+
+      cursor: pointer;
+      height: 2.5rem;
+    }
+
+    .active-tabs {
+      transition: .1s all ease-out;
+    }
+
+    button {
+      border: none;
+    }
+
+    .content-tabs {
+      height: 40%;
+      flex-grow: 1;
+      background: rgb(10, 10, 10);
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      display: none;
+      transition: 1s all;
+
+      .content-p {
+        font-size: 1rem;
+        font-weight: 100;
+      }
+    }
+
+    .active-content {
+      overflow: hidden;
+      display: flex;
+      height: 100%;
+      padding: 1rem;
       margin: 0 auto;
-      
-      .bloc-tabs {
-        display: flex;
-      }
-      .tabs {
-        font-family: 'Jost';
-        color: white;
-        padding: 15px;
-        font-size: 1.2rem;
-        font-weight: 300;
-        justify-content: center;
-        align-items: center;
-        flex: 1;
-        display: flex;
-        
-        cursor: pointer;
-        height: 2.5rem;
-        
-      
-       
-      }
-   
-      .active-tabs  {
-        transition: .1s all ease-out;
-      }
-   
-      button {
-        border: none;
-      }
-    
-      .content-tabs {
-        height: 40%;
-        flex-grow : 1;
-        background: rgb(10, 10, 10);
-      }
-      .content {
-        display: flex;
-        flex-direction: column;
-      
-        display: none;
-        transition: 1s all;
-
-        .content-p{
-          font-size: 1rem;
-          font-weight: 100;
-        }
-      }
-     
-
-
-      .active-content {
-        overflow: hidden;
-       
-        display: flex;
-        height: 100%;
-        padding: 1rem;
-        margin: 0 auto;
-
-
-      }
-      
-       
-
-
     }
-    .animation-container{
+  }
+
+  .animation-container {
+    @include flexCenter;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    background-color: rgb(10, 10, 10);
+
+
+    .animation-form {
+      font-size: .5em;
+    }
+
+    .animation-input-container {
       @include flexCenter;
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem;
-        background-color: rgb(10, 10, 10);
-        
-      
-      .animation-form{
-        font-size: .5em;
-       
-      }
-      .animation-input-container{
-        @include flexCenter;
-        justify-content: flex-start;
-        align-items: center
-      }
-      .animation-input-container p{
-        margin-left: .5rem;
-      }
-      .radio{
-        margin-right: .5rem;
-      }
+      justify-content: flex-start;
+      align-items: center
     }
-  
-} 
-.tab1{
+
+    .animation-input-container p {
+      margin-left: .5rem;
+    }
+
+    .radio {
+      margin-right: .5rem;
+    }
+  }
+
+}
+
+.tab1 {
   background-color: rgb(34, 34, 34);
 }
-.tab2{
+
+.tab2 {
   background-color: rgb(29, 29, 29);
 }
-.tab3{
+
+.tab3 {
   background-color: rgb(20, 20, 20);
 }
-.tab4{
+
+.tab4 {
   background-color: rgb(15, 15, 15);
 }
-.canvas{
+
+.canvas {
   @include flexCenter;
   height: 25rem;
 }

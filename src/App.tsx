@@ -56,11 +56,11 @@ useEffect(()=> {
     targets: '.slideIn',
     direction: 'forwards',
     translateX: [
-      { value: 700, duration: 200},
-      { value: -700, duration: 0},
+      { value: 1000, duration: 200},
+      { value: -1000, duration: 0},
       { value: 0, duration: 200},
     ],
-    easing: 'linear',
+    easeing: 'spring(0, 90, 10, 10)',
     loop: false
   })
 }, [toggleState])
@@ -70,9 +70,48 @@ useEffect(()=> {
   anime({
     targets: '.logo',
     direction: 'forwards',
-    rotate: {
-      value: 360, duration: 4000},
-    easing: 'linear',
+   
+   
+    translateX: [
+      { value: -200, duration: 0, easeing: 'cubicBezier(.86,.25,.99,.71)'},
+      { value: 100, duration: 1000},
+      { value: -100, duration: 3000}
+    ],
+    translateY: [
+      { value: -60, duration: 400, delay:1000, easing: 'easeOutExpo'},
+      { value: 0, duration: 300},
+      { value: -30, duration: 200, easing: 'easeOutExpo'},
+      { value: 0, duration: 200},
+      { value: -20, duration: 150, easing: 'easeOutExpo'},
+      { value: 0, duration: 150},
+      { value: -15, duration: 120, easing: 'easeOutExpo'},
+      { value: 0, duration: 120},
+      { value: -10, duration: 100, easing: 'easeOutExpo'},
+      { value: 0, duration: 100},
+      { value: -5, duration: 50, easing: 'easeOutExpo'},
+      { value: 0, duration: 50},
+      { value: -1, duration: 50, easing: 'easeOutExpo'},
+      { value: 0, duration: 50},
+     
+    ],
+    rotate: [
+      {
+      value: 240, duration: 1000},
+      {value: 90, duration: 3000}
+    ],
+    opacity: [
+      {value: 0, duration: 0},
+      {value: 1, duration: 800},
+      {value: 0, duration: 600, delay: 1700}
+    ],
+
+  
+    // rotate: 
+    // [{
+    //   value: -360, duration: 10}
+    // ],
+      
+    easing: 'cubicBezier(.86,.25,.99,.71)',
     loop: true
   })
 }, [])
@@ -87,7 +126,8 @@ useEffect(()=> {
       { value: -300, duration: 0},
       { value: 0, duration: 500},
     ],
-    easing: 'easeInOutQuad',
+    
+    easeing: 'spring(0, 90, 10, 10)',
     loop: false
   })
 }, [toggleState])
@@ -98,15 +138,16 @@ useEffect(()=> {
     targets: '.display-year',
     direction: 'forwards',
     translateX: [
-      { value: 150, duration: 100},
+      { value: 150, duration: 200},
       { value: -150, duration: 0},
-      { value: 0, duration: 100},
+      { value: 0, duration: 200},
     ],
     opacity: [
-      { value: 0, duration: 100},
-      { value: 1, duration: 100},
+      { value: 0, duration: 200},
+      { value: 1, duration: 200},
     ],
-    easing: 'linear',
+    
+    easeing: 'spring(0, 90, 10, 10)',
     loop: false
   })
 }, [displayYear])
@@ -326,7 +367,7 @@ useEffect(()=> {
         <button className={toggleState === 1 ? "tabs tab1 active-tabs" : "tabs tab1"} onClick={() => toggleTab(1)}>BARS</button>
         <button className={toggleState === 2 ? "tabs tab2 active-tabs" : "tabs tab2"} onClick={() => toggleTab(2)}>CIRCLE</button>
         <button className={toggleState === 3 ? "tabs tab3 active-tabs" : "tabs tab3"} onClick={() => toggleTab(3)}>LINE </button>
-        <button className={toggleState === 4 ? "tabs tab4 active-tabs" : "tabs tab4"} onClick={() => toggleTab(4)}>AREA</button>
+        <button className={toggleState === 4 ? "tabs tab4 active-tabs" : "tabs tab4"} onClick={() => toggleTab(4)}>POLAR AREA</button>
       </div>
 
       <div className="content-tabs">
