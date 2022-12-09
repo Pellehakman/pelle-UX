@@ -29,45 +29,41 @@ function App() {
   const [displayYear, setDisplayYear] = useState<string>('1901')
   const [toggleState, setToggleState] = useState(1);
   const [question, setQuestion] = useState<string>('Total prizes by category')
- 
   const [chartData, setChartData ] = useState<Object[]>([])
   const [whatAnimation, setWhatAnimation] = useState<any>('slideIn')
   const [overlayYears, setOverlayYears] = useState<boolean>(false);
   const [overlay, setOverlay] = useState<boolean>(false);
- 
-  
-
   let digits = displayYear.split('')
 
-  const handleFormInput: (e:any) => void = (e:any) => {
-    const { value } = e.target;
-      setWhatAnimation(value)
-  }
+//listen to what animation 
+const handleFormInput: (e:any) => void = (e:any) => {
+  const { value } = e.target;
+    setWhatAnimation(value)
+}
 // animation slide and fade
-
-  useEffect(()=> {
-    anime({
-      targets: '.fadeIn',
-      direction: 'forwards',
-      opacity: [
-        { value: 0, duration: 0},
-        { value: 1, duration: 1000},
-      ],
-      easing: 'linear',
-      loop: false
-    })
-    anime({
-      targets: '.slideIn',
-      direction: 'forwards',
-      translateX: [
-        { value: 700, duration: 200},
-        { value: -700, duration: 0},
-        { value: 0, duration: 200},
-      ],
-      easing: 'linear',
-      loop: false
-    })
-  }, [toggleState])
+useEffect(()=> {
+  anime({
+    targets: '.fadeIn',
+    direction: 'forwards',
+    opacity: [
+      { value: 0, duration: 0},
+      { value: 1, duration: 1000},
+    ],
+    easing: 'linear',
+    loop: false
+  })
+  anime({
+    targets: '.slideIn',
+    direction: 'forwards',
+    translateX: [
+      { value: 700, duration: 200},
+      { value: -700, duration: 0},
+      { value: 0, duration: 200},
+    ],
+    easing: 'linear',
+    loop: false
+  })
+}, [toggleState])
 
 // animation logo
 useEffect(()=> {
@@ -81,6 +77,7 @@ useEffect(()=> {
   })
 }, [])
 
+// animation chart header
 useEffect(()=> {
   anime({
     targets: '.content-title',
@@ -95,6 +92,7 @@ useEffect(()=> {
   })
 }, [toggleState])
 
+// animation big year number
 useEffect(()=> {
   anime({
     targets: '.display-year',
@@ -112,7 +110,6 @@ useEffect(()=> {
     loop: false
   })
 }, [displayYear])
-
 
 // chart JS options and data
    const options = {
@@ -237,7 +234,6 @@ const createYears = () => {
     arr.push(years)
   }
 }
-
 //---------------- ALL OBJECTS WITH DATA //---------------- //
 
 let winnerByYear:any = {
@@ -277,7 +273,6 @@ const displayData = () => {
     setChartData(winStatistics)
   } 
 }
-
 // USE EFFECTS
 useEffect(()=> {
   createYears() 
